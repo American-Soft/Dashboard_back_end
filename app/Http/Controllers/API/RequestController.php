@@ -49,7 +49,7 @@ class RequestController extends Controller
     }
 
     public function delete(ModelsRequest $request){
-        $request->delete();
+        $request->customer()->delete();
         return $this->successResponse($request , 'Delete Customer Request' , 200);
     }
 

@@ -29,7 +29,7 @@ class RequestService implements RequestServiceInterface{
     }
 
     public function delete(ModelsRequest $request){
-        $request->delete();
+        $request->customer()->delete();
         return ['data' => null , 'message' => 'Delete Customer Request' , 'status' => 200];
     }
 
