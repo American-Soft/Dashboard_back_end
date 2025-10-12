@@ -24,14 +24,6 @@ Route::post('store/product/{brand}',[ProductController::class,'store'])->middlew
 Route::put('update/product/{product}/{brand}',[ProductController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Product']);
 Route::delete('delete/product/{product}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
 
-// //customer request
-// Route::post('customer/request/search',[CustomerRequestController::class,'search'])->middleware(['auth:sanctum' , 'permission:search Customer Request']);
-// Route::post('customer/request/store/{brand}/{product}',[CustomerRequestController::class,'store']);
-// Route::put('customer/request/update/{customerRequest}/{brand}/{product}',[CustomerRequestController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Customer Request']);
-// Route::get('customers/requests',[CustomerRequestController::class,'customers_requests'])->middleware(['auth:sanctum' , 'permission:index Customer Request']);
-// Route::get('customer/request/{customerrequest}',[CustomerRequestController::class,'get_customer_request'])->middleware(['auth:sanctum' , 'permission:get customer request']);
-// Route::delete('customer/request/delete/with/device/{customerrequest}',[CustomerRequestController::class,'delete_customer_request'])->middleware(['auth:sanctum' , 'permission:delete Customer Request']);
-
 //customer
 Route::post('store/customer/{request}' , [CustomerController::class,'store']);
 Route::get('customers' , [CustomerController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Customers']);

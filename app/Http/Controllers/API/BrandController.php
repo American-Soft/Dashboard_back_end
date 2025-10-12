@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateBrandRequest;
 use App\Models\Brand;
 use App\Services\interface\BrandServiceInterface;
 use App\trait\ApiResponse;
-use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {

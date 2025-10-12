@@ -5,22 +5,18 @@ namespace App\Providers;
 use App\Repositories\AuthRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\CustomerRepository;
-use App\Repositories\CustomerRequestRepository;
 use App\Repositories\interface\AuthRepositoryInterface;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\CustomerRepositoryInterface;
-use App\Repositories\interface\CustomerRequestRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\UserRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
-use App\Services\CustomerRequestService;
 use App\Services\CustomerService;
 use App\Services\interface\AuthServiceInterface;
 use App\Services\interface\BrandServiceInterface;
-use App\Services\interface\CustomerRequestServiceInterface;
 use App\Services\interface\CustomerServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\UserServiceInterface;
@@ -35,15 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(
-            CustomerRequestServiceInterface::class,
-            CustomerRequestService::class
-        );
-
-        $this->app->bind(
-            CustomerRequestRepositoryInterface::class,
-            CustomerRequestRepository::class
-        );
 
         $this->app->bind(
             BrandServiceInterface::class,

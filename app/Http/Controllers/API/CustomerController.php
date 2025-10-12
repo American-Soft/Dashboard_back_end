@@ -9,7 +9,6 @@ use App\Models\Customer;
 use App\Models\Request as ModelsRequest;
 use App\Services\interface\CustomerServiceInterface;
 use App\trait\ApiResponse;
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {

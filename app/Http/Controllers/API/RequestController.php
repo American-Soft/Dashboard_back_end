@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SearchRequestReqest;
 use App\Http\Requests\StoreRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
 use App\Models\Brand;

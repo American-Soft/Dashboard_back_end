@@ -9,7 +9,6 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Services\interface\ProductServiceInterface;
 use App\trait\ApiResponse;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
