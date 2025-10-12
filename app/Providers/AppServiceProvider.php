@@ -19,8 +19,10 @@ use App\Services\interface\AuthServiceInterface;
 use App\Services\interface\BrandServiceInterface;
 use App\Services\interface\CustomerServiceInterface;
 use App\Services\interface\ProductServiceInterface;
+use App\Services\interface\RequestServiceInterface;
 use App\Services\interface\UserServiceInterface;
 use App\Services\ProductService;
+use App\Services\RequestService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -81,7 +83,15 @@ class AppServiceProvider extends ServiceProvider
             CustomerRepositoryInterface::class,
             CustomerRepository::class
         );
-
+        $this->app->bind(
+            RequestServiceInterface::class,
+            RequestService::class
+        );
+        $this->app->bind(
+            CustomerRepositoryInterface::class,
+            CustomerRepository::class
+        );
+        
     }
 
     /**

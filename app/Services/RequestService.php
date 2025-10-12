@@ -29,8 +29,10 @@ class RequestService implements RequestServiceInterface{
     }
 
     public function delete(ModelsRequest $request){
+        if($request->customer->id == 1)
+            return ['data' => null , 'message' => 'You can not delete this request' , 'status' => 200];
         $request->customer()->delete();
-        return ['data' => null , 'message' => 'Delete Customer Request' , 'status' => 200];
+        return ['data' => $request , 'message' => 'Delete Customer Request' , 'status' => 200];
     }
 
 

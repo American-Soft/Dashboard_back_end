@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\CustomerController;
+use App\Http\Controllers\API\CustomerRequestController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RequestController;
 use App\Http\Controllers\AUTH\AuthController;
@@ -25,14 +26,14 @@ Route::put('update/product/{product}/{brand}',[ProductController::class,'update'
 Route::delete('delete/product/{product}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
 
 //customer
-Route::post('store/customer/{request}' , [CustomerController::class,'store']);
+Route::post('store/customer/{request}' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);
 Route::get('customers' , [CustomerController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Customers']);
 Route::get('customer/{customer}' , [CustomerController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Customer']);
 Route::delete('delete/customer/{customer}' , [CustomerController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Customer']);
 Route::put('update/customer/{customer}' , [CustomerController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Customer']);
 
 //request
-Route::post('store/request/{brand}/{product}' , [RequestController::class,'store']);
+Route::post('store/request/{brand}/{product}' , [RequestController::class,'store'])->middleware(['auth:sanctum' , 'permission:index Requests']);
 Route::get('requests' ,[RequestController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Requests']);
 Route::get('request/{request}' , [RequestController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Request']);
 Route::delete('delete/request/{request}' , [RequestController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Request']);
@@ -47,3 +48,7 @@ Route::delete('/delete/user/{user}',[UserController::class,'delete'])->middlewar
 
 //profile
 Route::get('/user',[UserController::class,'profile'])->middleware(['auth:sanctum' , 'permission:profile user']);
+
+
+//all wep form
+Route::post('/store/customer/request/{brand}/{product}',[CustomerRequestController::class,'store']);

@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Request as ModelsRequest;
+use App\Services\interface\RequestServiceInterface;
 use App\trait\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -16,62 +17,33 @@ use Illuminate\Http\Request;
 class RequestController extends Controller
 {
     use ApiResponse;
+
+    public function __construct(protected RequestServiceInterface $requestService){}
     public function store(StoreRequestReqest $request , Brand $brand , Product $product){
-        $customer = Customer::where('id' , 1)->first();
-        $req = ModelsRequest::create([
-            'city'                => $request['city'],
-            'governorate'         => $request['governorate'],
-            'region'              => $request['region'],
-            'address'             => $request['address'],
-            'status'              => $request['status'],
-            'problem_description' => $request['problem_description'],
-            'warranty_status'     => $request['warranty_status'],
-            'note'                => $request['note'],
-            'domain'              => $request['domain'],
-            'brand_id'            => $brand->id,
-            'product_id'          => $product->id,
-            'customer_id'         => $customer->id
-        ]);
-        return $this->successResponse($req,'Request Stored Successfully',201);
+        
+        $result = $this->requestService->store($request , $brand , $product);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function index(){
-        $requests = ModelsRequest::with('customer')->get();
-        if($requests->isEmpty())
-            return $this->errorResponse('There is no request' , 404);
-        return $this->successResponse($requests,'Customers Requests' , 200);
+        $result = $this->requestService->index();
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function show(ModelsRequest $request){
-        $request->load('customer');
-        return $this->successResponse($request , 'Customer Request' , 200);
+        $result = $this->requestService->show($request);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function delete(ModelsRequest $request){
-        if($request->customer->id == 1)
-            return $this->errorResponse('You can not delete this request' , 400);
-        $request->customer()->delete();
-        return $this->successResponse($request , 'Delete Customer Request' , 200);
+        $result = $this->requestService->delete($request);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
 
     public function update(UpdateRequestReqest $updateRequest,ModelsRequest $request, Brand $brand , Product $product){
-        $data = array_filter($updateRequest->toArray(), function ($value) {
-            return !is_null($value);
-        });
-        $changes = [];
-        foreach ($data as $key => $value) {
-            if ($request->$key != $value) {
-                $changes[$key] = $value;
-            }
-        }
-        if (!empty($changes)) {
-            $changes['brand_id'] = $brand->id;
-            $changes['product_id'] = $product->id;
-            $request->update($changes);
-            return $this->successResponse( $request, 'request updated successfully',  200);
-        }
-        return $this->successResponse(null,'No changes detected',  200);
+        $result = $this->requestService->update($updateRequest , $request , $brand , $product);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function search(Request $request){
