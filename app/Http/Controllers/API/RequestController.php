@@ -49,6 +49,8 @@ class RequestController extends Controller
     }
 
     public function delete(ModelsRequest $request){
+        if($request->customer->id == 1)
+            return $this->errorResponse('You can not delete this request' , 400);
         $request->customer()->delete();
         return $this->successResponse($request , 'Delete Customer Request' , 200);
     }
