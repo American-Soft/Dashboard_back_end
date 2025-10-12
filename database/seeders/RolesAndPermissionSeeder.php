@@ -32,14 +32,21 @@ class RolesAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'login' , 'guard_name' => 'api']);
         Permission::create(['name' => 'logout' , 'guard_name' => 'api']);
         
-        //Customer Request
-        Permission::create(['name' => 'index Customer Request' , 'guard_name' => 'api']);//all
-        Permission::create(['name' => 'insert Customer Request' , 'guard_name' => 'api']);//all
-        Permission::create(['name' => 'update Customer Request' , 'guard_name' => 'api']);//all
-        Permission::create(['name' => 'delete Customer Request' , 'guard_name' => 'api']);//admin and super
-        Permission::create(['name' => 'search Customer Request' , 'guard_name' => 'api']);//all
-        Permission::create(['name' => 'get customer request' , 'guard_name' => 'api']);//all
+        //Customer 
+        Permission::create(['name' => 'index Customers' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'insert Customer' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'update Customer' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'delete Customer' , 'guard_name' => 'api']);//admin and super
+        Permission::create(['name' => 'get Customer' , 'guard_name' => 'api']);//all
 
+        //Request
+        Permission::create(['name' => 'index Requests' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'insert Request' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'update Request' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'delete Request' , 'guard_name' => 'api']);//admin and super
+        Permission::create(['name' => 'get Request' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'search Request' , 'guard_name' => 'api']);//all
+        
         Permission::create(['name' => 'users' , 'guard_name' => 'api']);//super admin
         Permission::create(['name' => 'update user role' , 'guard_name' => 'api']);//super admin
         Permission::create(['name' => 'delete user' , 'guard_name' => 'api']);//super admin
@@ -59,12 +66,17 @@ class RolesAndPermissionSeeder extends Seeder
             'register',
             'login',
             'logout',
-            'index Customer Request',
-            'insert Customer Request',
-            'update Customer Request',
-            'delete Customer Request',
-            'search Customer Request',
-            'get customer request',
+            'index Customers',
+            'insert Customer',
+            'update Customer',
+            'delete Customer',
+            'get Customer',
+            'index Requests',
+            'insert Request',
+            'update Request',
+            'delete Request',
+            'search Request',
+            'get Request',
             'users',
             'update user role',
             'delete user',
@@ -83,23 +95,30 @@ class RolesAndPermissionSeeder extends Seeder
             'delete Product',
             'login',
             'logout',
-            'index Customer Request',
-            'insert Customer Request',
-            'update Customer Request',
-            'delete Customer Request',
-            'search Customer Request',
-            'get customer request',
+            'index Customers',
+            'insert Customer',
+            'update Customer',
+            'get Customer',
+            'index Requests',
+            'insert Request',
+            'update Request',
+            'search Request',
+            'get Request',
             'profile user'
         ]);
         $customer_service = Role::create(['name' => 'customer_service' , 'guard_name' => 'api']);
         $customer_service->givePermissionTo([
             'login',
             'logout',
-            'index Customer Request',
-            'insert Customer Request',
-            'update Customer Request',
-            'search Customer Request',
-            'get customer request',
+            'index Customers',
+            'insert Customer',
+            'update Customer',
+            'get Customer',
+            'index Requests',
+            'insert Request',
+            'update Request',
+            'search Request',
+            'get Request',
             'profile user'
         ]);
     }

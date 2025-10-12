@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Repositories\AuthRepository;
 use App\Repositories\BrandRepository;
+use App\Repositories\CustomerRepository;
 use App\Repositories\CustomerRequestRepository;
 use App\Repositories\interface\AuthRepositoryInterface;
 use App\Repositories\interface\BrandRepositoryInterface;
+use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\interface\CustomerRequestRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\UserRepositoryInterface;
@@ -15,9 +17,11 @@ use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
 use App\Services\CustomerRequestService;
+use App\Services\CustomerService;
 use App\Services\interface\AuthServiceInterface;
 use App\Services\interface\BrandServiceInterface;
 use App\Services\interface\CustomerRequestServiceInterface;
+use App\Services\interface\CustomerServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\UserServiceInterface;
 use App\Services\ProductService;
@@ -79,6 +83,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserRepositoryInterface::class,
             UserRepository::class
+        );
+
+        $this->app->bind(
+            CustomerServiceInterface::class,
+            CustomerService::class
+        );
+
+        $this->app->bind(
+            CustomerRepositoryInterface::class,
+            CustomerRepository::class
         );
 
     }

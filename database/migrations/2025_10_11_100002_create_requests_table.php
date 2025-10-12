@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customerrequests', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('phone_number');
-            $table->string('whatsapp_number');
-            $table->string('whatsapp_number_code');
-            $table->string('email')->nullable();
             $table->string('city');
             $table->string('governorate');
             $table->string('region');
@@ -29,6 +24,7 @@ return new class extends Migration
             $table->string('domain');
             $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -38,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customerrequests');
+        Schema::dropIfExists('requests');
     }
 };
