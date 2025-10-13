@@ -20,6 +20,9 @@ class RequestService implements RequestServiceInterface{
     public function __construct(protected RequestRepositoryInterface $requestRepository){}
 
     public function store(StoreRequestReqest $request , Brand $brand , Product $product){
+        if($brand->id != $product->brand_id){
+            throw new Exception('Brand and product does not match');
+        }
         $req = $this->requestRepository->create($request->toArray() , $brand , $product);
         return ['data'=>$req , 'message'=>'Request created successfully' , 'status'=>201];
     }

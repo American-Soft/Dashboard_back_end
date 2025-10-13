@@ -8,13 +8,16 @@ class Brand extends Model
 {
     protected $fillable = ['name'];
 
-    public function customerrequests()
-    {
-        return $this->hasMany(CustomerRequest::class, 'brand_id');
-    }
 
     public function products()
     {
         return $this->hasMany(Product::class , 'brand_id');
     }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class , 'brand_id');
+    }
+
+
 }

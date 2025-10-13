@@ -8,7 +8,7 @@ class BrandRepository implements BrandRepositoryInterface{
     public function __construct(protected Brand $brand){}
 
     public function all(){
-        return $this->brand->all();
+        return $this->brand->withCount('requests')->get();
     }
 
     public function create(array $data){

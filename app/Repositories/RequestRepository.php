@@ -13,7 +13,7 @@ class RequestRepository implements RequestRepositoryInterface{
     public function __construct(protected Request $request , protected BrandRepositoryInterface $brandRepository){}
 
     public function all(){
-        return $this->request->with('customer')->all();
+        return $this->request->with('customer')->get();
     }
     public function create(array $data , Brand $brand , Product $product){
         $data['brand_id'] = $brand->id;
