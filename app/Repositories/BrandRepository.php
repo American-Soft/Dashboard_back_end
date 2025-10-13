@@ -19,4 +19,8 @@ class BrandRepository implements BrandRepositoryInterface{
         $brand->update($data);
         return $brand->fresh();
     }
+
+    public function findByName($name){
+        return $this->brand->where('name' , $name)->first();
+    }
 }

@@ -9,8 +9,10 @@ use App\Repositories\interface\AuthRepositoryInterface;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
+use App\Repositories\interface\RequestRepositoryInterface;
 use App\Repositories\interface\UserRepositoryInterface;
 use App\Repositories\ProductRepository;
+use App\Repositories\RequestRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
@@ -83,13 +85,20 @@ class AppServiceProvider extends ServiceProvider
             CustomerRepositoryInterface::class,
             CustomerRepository::class
         );
+
         $this->app->bind(
             RequestServiceInterface::class,
             RequestService::class
         );
+
         $this->app->bind(
-            CustomerRepositoryInterface::class,
-            CustomerRepository::class
+            RequestServiceInterface::class,
+            RequestService::class
+        );
+
+        $this->app->bind(
+            RequestRepositoryInterface::class,
+            RequestRepository::class
         );
         
     }

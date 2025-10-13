@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchRequestReqest;
 use App\Http\Requests\StoreRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
 use App\Models\Brand;
@@ -46,35 +47,8 @@ class RequestController extends Controller
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
-    public function search(Request $request){
-        $query = ModelsRequest::query()->with(['customer','brand','product']);
-        $result = $query->where(function ($q) use ($request) {
-        if ($request->query('id')) {
-            $q->where('id', 'like', '%' . $request->id . '%');
-        }
-
-        if ($request->query('created_at')) {
-            $q->orWhere('created_at', 'like', '%'.$request->created_at.'%');
-        }
-
-        if ($request->query('status')) {
-            $q->orWhere('status', 'like', '%' . $request->status . '%');
-        }
-
-        if ($request->query('domain')) {
-            $q->orWhere('domain', 'like', '%' . $request->domain . '%');
-        }
-        if ($request->query('brand_name')) {
-            $q->orWhereHas('brand', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->brand_name . '%');
-            });
-        }
-        if ($request->query('phone_number')) {
-            $q->orWhereHas('customer', function ($q) use ($request) {
-                $q->where('phone_number', 'like', '%' . $request->phone_number . '%');
-            });
-        }
-    })->get();
+    public function search(SearchRequestReqest $request){
+        $result = $this->requestService->search($request);
         return $this->successResponse($result , 'Search Result' , 200);
     }
 }
