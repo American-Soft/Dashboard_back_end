@@ -26,11 +26,11 @@ Route::put('update/product/{productId}/{brandId}',[ProductController::class,'upd
 Route::delete('delete/product/{productId}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
 
 //customer
-Route::post('store/customer/{request}' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);
+Route::post('store/customer/{requestId}' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);
 Route::get('customers' , [CustomerController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Customers']);
-Route::get('customer/{customer}' , [CustomerController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Customer']);
-Route::delete('delete/customer/{customer}' , [CustomerController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Customer']);
-Route::put('update/customer/{customer}' , [CustomerController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Customer']);
+Route::get('customer/{customerId}' , [CustomerController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Customer']);
+Route::delete('delete/customer/{customerId}' , [CustomerController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Customer']);
+Route::put('update/customer/{customerId}' , [CustomerController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Customer']);
 
 //request
 Route::post('store/request/{brandId}/{productId}' , [RequestController::class,'store'])->middleware(['auth:sanctum' , 'permission:index Requests']);
@@ -42,9 +42,9 @@ Route::get('search/request' , [RequestController::class,'search'])->middleware([
 
 //admin
 Route::get('/users',[UserController::class,'index'])->middleware(['auth:sanctum' , 'permission:users']);
-Route::get('/show/user/{user}',[UserController::class,'show'])->middleware(['auth:sanctum' , 'permission:show user']);
-Route::put('/update/user/{user}',[UserController::class,'update'])->middleware(['auth:sanctum' , 'permission:update user role']);
-Route::delete('/delete/user/{user}',[UserController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete user']);
+Route::get('/show/user/{userId}',[UserController::class,'show'])->middleware(['auth:sanctum' , 'permission:show user']);
+Route::put('/update/user/{userId}',[UserController::class,'update'])->middleware(['auth:sanctum' , 'permission:update user role']);
+Route::delete('/delete/user/{userId}',[UserController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete user']);
 
 //profile
 Route::get('/user',[UserController::class,'profile'])->middleware(['auth:sanctum' , 'permission:profile user']);

@@ -7,12 +7,12 @@ use App\Models\Customer;
 use App\Models\Request as ModelsRequest;
 
 interface CustomerServiceInterface{
-    public function store(StoreCustomerReqest $storeCustomerReqest , ModelsRequest $request);
+    public function store(StoreCustomerReqest $storeCustomerReqest , int $requestId);
     public function index();
 
-    public function show(Customer $customer);
+    public function show(int $customerId);
 
-    public function delete(Customer $customer);
+    public function delete(int $customerId);
 
-    public function update(UpdateCustomerReqest $request , Customer $customer);
+    public function update(UpdateCustomerReqest $request , int $customerId);
 }

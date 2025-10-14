@@ -24,4 +24,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function findById($id){
         return $this->customer->where('id' , $id)->first();
     }
+
+    public function show(int $customerId){
+        return $this->customer->where('id' , $customerId)->with('requests')->first();
+    }
 }

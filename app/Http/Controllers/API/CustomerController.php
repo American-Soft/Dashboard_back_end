@@ -16,8 +16,8 @@ class CustomerController extends Controller
 
     public function __construct(protected CustomerServiceInterface $customerService){}
 
-    public function store(StoreCustomerReqest $storeCustomerReqest , ModelsRequest $request){
-        $result = $this->customerService->store($storeCustomerReqest , $request);
+    public function store(StoreCustomerReqest $storeCustomerReqest , int $requestId){
+        $result = $this->customerService->store($storeCustomerReqest , $requestId);
         return $this->successResponse($result['data'],$result['message'],   $result['status']);
     }
     public function index(){
@@ -25,18 +25,18 @@ class CustomerController extends Controller
         return $this->successResponse($customers['data'],$customers['message'],   $customers['status']);
     }
 
-    public function show(Customer $customer){
-        $customer = $this->customerService->show($customer);
+    public function show(int $customerId){
+        $customer = $this->customerService->show($customerId);
         return $this->successResponse($customer['data'],$customer['message'],   $customer['status']);
     }
 
-    public function delete(Customer $customer){
-        $customer = $this->customerService->delete($customer);
+    public function delete(int $customerId){
+        $customer = $this->customerService->delete($customerId);
         return $this->successResponse($customer['data'],$customer['message'],   $customer['status']);
     }
 
-    public function update(UpdateCustomerReqest $request , Customer $customer){
-        $customer = $this->customerService->update($request , $customer);
+    public function update(UpdateCustomerReqest $request , int $customerId){
+        $customer = $this->customerService->update($request , $customerId);
         return $this->successResponse($customer['data'],$customer['message'],   $customer['status']);
     }
 }

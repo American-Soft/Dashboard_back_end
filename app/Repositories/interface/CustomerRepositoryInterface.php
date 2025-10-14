@@ -8,4 +8,6 @@ interface CustomerRepositoryInterface{
     public function create(array $data);
     public function update(Customer $customer,array $data);
     public function findById($id);
+
+    public function show(int $customerId);
 }

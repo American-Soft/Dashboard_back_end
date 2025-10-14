@@ -1,37 +1,48 @@
 <?php 
 namespace App\Services;
 
+use App\Exceptions\CustomerNotFoundException;
+use App\Exceptions\CustomersRequestsNotFoundException;
+use App\Exceptions\RequestNotFoundException;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
 use App\Models\Customer;
 use App\Models\Request as ModelsRequest;
 use App\Repositories\interface\CustomerRepositoryInterface;
+use App\Repositories\RequestRepository;
 use App\Services\interface\CustomerServiceInterface;
-
+use PhpParser\Node\Expr\Throw_;
 
 class CustomerService implements CustomerServiceInterface{
 
-    public function __construct(protected CustomerRepositoryInterface $customerRepository){}
+    public function __construct(
+        protected CustomerRepositoryInterface $customerRepository , 
+        protected RequestRepository $requestRepository){}
 
-    public function store(StoreCustomerReqest $storeCustomerReqest , ModelsRequest $request){
-        $customer = $this->customerRepository->create($storeCustomerReqest->toArray());
+    public function store(StoreCustomerReqest $storeCustomerRequest , int $requestiId){
+        $request = $this->requestRepository->findById($requestiId);
+        if(!$request)
+            Throw new RequestNotFoundException();
+        $customer = $this->customerRepository->create($storeCustomerRequest->toArray());
         $request->update(['customer_id' => $customer->id]);
         return ['data' => $customer , 'message' => 'Customer Request Stored Successfully' , 'status' => 201];
     }
     public function index(){
         $customers = $this->customerRepository->all();
         if($customers->isEmpty())
-            return ['data' => null , 'message' => 'There is no Customer' , 'status' => 404];
+            Throw new CustomersRequestsNotFoundException();
         return ['data' => $customers , 'message' => 'Customers Requests' , 'status' => 200];
     }
 
-    public function show(Customer $customer){
-        //edit
-        $customer->load('requests');
+    public function show(int $customerId){
+        $customer = $this->customerRepository->show($customerId);
         return ['data' => $customer , 'message' => 'Customer Requests' , 'status' => 200];
     }
 
-    public function delete(Customer $customer){
+    public function delete(int $customerId){
+        $customer = $this->customerRepository->findById($customerId);
+        if(!$customer)
+            Throw new CustomerNotFoundException();
         if($customer->id == 1){
             return ['data' => $customer, 'message' => 'you can not delete this customer', 'status' => 400];
         }
@@ -39,7 +50,13 @@ class CustomerService implements CustomerServiceInterface{
         return ['data' => $customer, 'message' => 'Customer deleted', 'status' => 200];
     }
 
-    public function update(UpdateCustomerReqest $request , Customer $customer){
+    public function update(UpdateCustomerReqest $request , int $customerId){
+        $customer = $this->customerRepository->findById($customerId);
+        if(!$customer)
+            Throw new CustomerNotFoundException();
+        if($customer->id == 1){
+            return ['data' => $customer, 'message' => 'you can not Update this customer', 'status' => 400];
+        }
         $data = array_filter($request->toArray(), function ($value) {
             return !is_null($value);
         });

@@ -1,6 +1,7 @@
 <?php 
 namespace App\Services;
 
+use App\Exceptions\UserNotFoundException;
 use App\Exceptions\UsersNotFoundException;
 use App\Http\Requests\UpdateUserRoleRequest;
 use App\Models\User;
@@ -20,21 +21,35 @@ class UserService implements UserServiceInterface{
         return ['data' => $users , 'message' => 'Users retrieved successfully' , 'status' =>200];
     }
 
-    public function update(UpdateUserRoleRequest $request , User $user){
+    public function update(UpdateUserRoleRequest $request , int $userId){
+        $user = $this->userRepositoryInterface->findById($userId);
+        if(!$user){
+            throw new UserNotFoundException();
+        }
         $user->syncRoles($request['role']);
-        $user = $this->userRepositoryInterface->findById($user->id);
         return ['data' => $user , 'message' => 'User updated role successfully' , 'status' =>200];
     }
 
-    public function delete(User $user){
+    public function delete(int $userId){
+        $user = $this->userRepositoryInterface->findById($userId);
+        if(!$user){
+            throw new UserNotFoundException();
+        }
         $user->delete();
         return ['data' => $user , 'message' => 'User deleted successfully' , 'status' =>200];
     }
     public function profile(Request $request){
         $user = $this->userRepositoryInterface->findById($request->user()->id);
+        if(!$user){
+            throw new UserNotFoundException();
+        }
         return ['data' => $user , 'message' => 'User retrieved successfully' , 'status' =>200];
     }
-    public function show(User $user){
+    public function show(int $userId){
+        $user = $this->userRepositoryInterface->findById($userId);
+        if(!$user){
+            throw new UserNotFoundException();
+        }
         return ['data' => $user , 'message' => 'User retrieved successfully' , 'status' =>200];
     }
 }

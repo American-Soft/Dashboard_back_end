@@ -20,13 +20,13 @@ class UserController extends Controller
         return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 
-    public function update(UpdateUserRoleRequest $request , User $user){
-        $result = $this->userServiceInterface->update($request , $user);
+    public function update(UpdateUserRoleRequest $request , int $userId){
+        $result = $this->userServiceInterface->update($request , $userId);
         return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 
-    public function delete(User $user){
-        $result = $this->userServiceInterface->delete( $user);
+    public function delete(int $userId){
+        $result = $this->userServiceInterface->delete( $userId);
         return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 
@@ -35,8 +35,8 @@ class UserController extends Controller
         return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 
-    public function show(User $user){
-        $result = $this->userServiceInterface->show( $user);
+    public function show(int $userId){
+        $result = $this->userServiceInterface->show( $userId);
         return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 }
