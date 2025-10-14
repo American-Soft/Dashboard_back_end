@@ -13,4 +13,8 @@ class AuthRepository implements AuthRepositoryInterface{
     public function findByEmail($email){
         return $this->user->where('email',$email)->first();
     }
+
+    public function findById($id){
+        return $this->user->where('id',$id)->first();
+    }
 }

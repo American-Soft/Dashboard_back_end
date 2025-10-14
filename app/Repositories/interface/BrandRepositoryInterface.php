@@ -9,4 +9,5 @@ interface BrandRepositoryInterface{
     public function update(Brand $brand,array $data);
 
     public function findByName($name);
+    public function findById(int $id);
 }

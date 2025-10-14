@@ -8,7 +8,6 @@ use App\Models\Request as ModelsRequest;
 use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Services\interface\CustomerServiceInterface;
 
-use function PHPUnit\Framework\isEmpty;
 
 class CustomerService implements CustomerServiceInterface{
 
@@ -33,6 +32,9 @@ class CustomerService implements CustomerServiceInterface{
     }
 
     public function delete(Customer $customer){
+        if($customer->id == 1){
+            return ['data' => $customer, 'message' => 'you can not delete this customer', 'status' => 400];
+        }
         $customer->delete();
         return ['data' => $customer, 'message' => 'Customer deleted', 'status' => 200];
     }

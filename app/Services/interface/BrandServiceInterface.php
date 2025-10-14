@@ -8,6 +8,6 @@ use App\Models\Brand;
 interface BrandServiceInterface{
     public function store(StoreBrandRequest $request);
     public function index();
-    public function update(UpdateBrandRequest $request, Brand $brand);
-    public function delete(Brand $brand);
+    public function update(UpdateBrandRequest $request,int $brandId);
+    public function delete(int $brandId);
 }

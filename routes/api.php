@@ -16,14 +16,14 @@ Route::post('/logout',[AuthController::class,'logout'])->middleware(['auth:sanct
 //brand
 Route::post('store/brand',[BrandController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Brand']);
 Route::get('brands',[BrandController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Brands']);
-Route::put('update/brand/{brand}',[BrandController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Brand']);
-Route::delete('delete/brand/{brand}',[BrandController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Brand']);
+Route::put('update/brand/{brandId}',[BrandController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Brand']);
+Route::delete('delete/brand/{brandId}',[BrandController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Brand']);
 
 //product
 Route::get('products',[ProductController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Products']);
-Route::post('store/product/{brand}',[ProductController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Product']);
-Route::put('update/product/{product}/{brand}',[ProductController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Product']);
-Route::delete('delete/product/{product}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
+Route::post('store/product/{brandId}',[ProductController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Product']);
+Route::put('update/product/{productId}/{brandId}',[ProductController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Product']);
+Route::delete('delete/product/{productId}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
 
 //customer
 Route::post('store/customer/{request}' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);

@@ -1,6 +1,7 @@
 <?php 
 namespace App\Services;
 
+use App\Exceptions\BrandNotFoundException;
 use App\Exceptions\BrandsNotFoundException;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
@@ -28,16 +29,24 @@ class BrandService implements BrandServiceInterface{
         return ['data' => $brands , 'message' => 'Brands retrieved successfully', 'status' => 200];
     }
 
-    public function update(UpdateBrandRequest $request, Brand $brand)
+    public function update(UpdateBrandRequest $request,int $brandId)
     {
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand) {
+            throw new BrandNotFoundException();
+        }
         $brand = $this->brandRepository->update($brand,[
             'name' => $request->name,
         ]);
         return ['data' => $brand , 'message' => 'Brand updated successfully', 'status' => 200];
     }
 
-    public function delete(Brand $brand)
+    public function delete(int $brandId)
     {
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand) {
+            throw new BrandNotFoundException();
+        }
         $brand->delete();
         return ['data' => $brand , 'message' => 'Brand deleted successfully', 'status' => 200];
     }

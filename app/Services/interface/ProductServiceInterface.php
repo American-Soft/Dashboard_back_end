@@ -8,7 +8,7 @@ use App\Models\Product;
 
 interface ProductServiceInterface{
     public function index();
-    public function store(StoreProductRequest $request , Brand $brand);
-    public function update(UpdateProductRequest $request, Product $product ,Brand $brand);
-    public function delete(Product $product);
+    public function store(StoreProductRequest $request , int $brandId);
+    public function update(UpdateProductRequest $request, int $productId ,int $brandId);
+    public function delete(int $productId);
 }

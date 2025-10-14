@@ -21,21 +21,21 @@ class ProductController extends Controller
         return $this->successResponse($result['data'],$result['message'], $result['status']);
     }
 
-    public function store(StoreProductRequest $request , Brand $brand)
+    public function store(StoreProductRequest $request , int $brandId)
     {
-        $result = $this->productServiceInterface->store($request , $brand);
+        $result = $this->productServiceInterface->store($request , $brandId);
         return $this->successResponse($result['data'],$result['message'], $result['status']);
     }
 
-    public function update(UpdateProductRequest $request, Product $product ,Brand $brand)
+    public function update(UpdateProductRequest $request, int $productId ,int $brandId)
     {
-        $result = $this->productServiceInterface->update($request ,$product, $brand );
+        $result = $this->productServiceInterface->update($request ,$productId, $brandId );
         return $this->successResponse($result['data'],$result['message'], $result['status']);
     }
 
-    public function delete(Product $product)
+    public function delete(int $productId)
     {
-        $result = $this->productServiceInterface->delete($product );
+        $result = $this->productServiceInterface->delete($productId );
         return $this->successResponse($result['data'],$result['message'], $result['status']);
     }
 }

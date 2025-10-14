@@ -20,4 +20,8 @@ class CustomerRepository implements CustomerRepositoryInterface
         $customer->update($data);
         return $customer->fresh();
     }
+
+    public function findById($id){
+        return $this->customer->where('id' , $id)->first();
+    }
 }

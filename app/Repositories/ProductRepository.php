@@ -17,4 +17,7 @@ class ProductRepository implements ProductRepositoryInterface{
         $product->update($data);
         return $product->fresh();
     }
+    public function findById($id){
+        return $this->product->where('id' , $id)->first();
+    }
 }

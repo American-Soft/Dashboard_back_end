@@ -23,4 +23,8 @@ class BrandRepository implements BrandRepositoryInterface{
     public function findByName($name){
         return $this->brand->where('name' , $name)->first();
     }
+
+    public function findById(int $id){
+        return $this->brand->where('id' , $id)->first();
+    }
 }

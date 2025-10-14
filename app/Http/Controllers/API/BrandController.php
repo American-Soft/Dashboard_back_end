@@ -27,14 +27,14 @@ class BrandController extends Controller
         return $this->successResponse($result['data'], $result['message'], $result['status']);
     }
 
-    public function update(UpdateBrandRequest $request, Brand $brand)
+    public function update(UpdateBrandRequest $request,int $brandId)
     {
-        $result =$this->brandServiceInterface->update($request , $brand);
+        $result =$this->brandServiceInterface->update($request , $brandId);
         return $this->successResponse($result['data'], $result['message'], $result['status']);
     }
-    public function delete(Brand $brand)
+    public function delete(int $brandId)
     {
-        $result =$this->brandServiceInterface->delete($brand);
+        $result =$this->brandServiceInterface->delete($brandId);
         return $this->successResponse($result['data'], $result['message'], $result['status']);
     }
 }

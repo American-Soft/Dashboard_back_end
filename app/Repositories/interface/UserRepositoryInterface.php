@@ -5,4 +5,5 @@ interface UserRepositoryInterface{
     public function all();
 
     public function findById(int $id);
+    
 }

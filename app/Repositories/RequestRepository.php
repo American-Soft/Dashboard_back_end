@@ -43,15 +43,12 @@ class RequestRepository implements RequestRepositoryInterface{
             if ($data['id']) {
                 $q->where('id', 'like', '%' . $data['id'] . '%');
             }
-
             if ($data['created_at']) {
                 $q->orWhere('created_at', 'like', '%'.$data['created_at'].'%');
             }
-
             if ($data['status']) {
                 $q->orWhere('status', 'like', '%' . $data['status'] . '%');
             }
-
             if ($data['domain']) {
                 $q->orWhere('domain', 'like', '%' . $data['domain'] . '%');
             }
@@ -66,5 +63,9 @@ class RequestRepository implements RequestRepositoryInterface{
                 });
             }
         })->get();
+    }
+
+    public function findById($id){
+        return $this->request->where('id' , $id)->first();
     }
 }
