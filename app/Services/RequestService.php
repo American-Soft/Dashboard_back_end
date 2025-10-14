@@ -1,6 +1,9 @@
 <?php 
 namespace App\Services;
 
+use App\Exceptions\BrandNotFoundException;
+use App\Exceptions\ProductNotFoundException;
+use App\Exceptions\RequestNotFoundException;
 use App\Exceptions\RequestsNotFoundExcption;
 use App\Exceptions\UpdateExcption;
 use App\Http\Requests\SearchRequestReqest;
@@ -9,6 +12,8 @@ use App\Http\Requests\UpdateRequestReqest;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Request as ModelsRequest;
+use App\Repositories\interface\BrandRepositoryInterface;
+use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
 use App\Services\interface\RequestServiceInterface;
 
@@ -17,9 +22,20 @@ use function PHPUnit\Framework\isEmpty;
 
 class RequestService implements RequestServiceInterface{
 
-    public function __construct(protected RequestRepositoryInterface $requestRepository){}
+    public function __construct(
+        protected RequestRepositoryInterface $requestRepository , 
+        protected BrandRepositoryInterface $brandRepository , 
+        protected ProductRepositoryInterface $productRepository){}
 
-    public function store(StoreRequestReqest $request , Brand $brand , Product $product){
+    public function store(StoreRequestReqest $request , int $brandId , int $productId){
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand){
+            throw new Exception('Brand not found');
+        }
+        $product = $this->productRepository->findById($productId);
+        if(!$product){
+            throw new Exception('Product not found');
+        }
         if($brand->id != $product->brand_id){
             throw new Exception('Brand and product does not match');
         }
@@ -34,11 +50,17 @@ class RequestService implements RequestServiceInterface{
         return ['data' => $requests , 'message' => 'Customers Requests' , 'status' => 200];
     }
 
-    public function show(ModelsRequest $request){
-        return ['data' =>  $this->requestRepository->show($request->id) , 'message' => 'Customer Request' , 'status' => 200];
+    public function show(int $requestId){
+        $request = $this->requestRepository->findById($requestId);
+        if(!$request)
+            throw new RequestNotFoundException();
+        return ['data' =>  $request , 'message' => 'Customer Request' , 'status' => 200];
     }
 
-    public function delete(ModelsRequest $request){
+    public function delete(int $requestId){
+        $request = $this->requestRepository->findById($requestId);
+        if(!$request)
+            throw new RequestNotFoundException();
         if($request->customer->id == 1)
             throw new Exception('You can not delete this request');
         $this->requestRepository->delete($request);
@@ -46,7 +68,16 @@ class RequestService implements RequestServiceInterface{
     }
 
 
-    public function update(UpdateRequestReqest $updateRequest,ModelsRequest $request, Brand $brand , Product $product){
+    public function update(UpdateRequestReqest $updateRequest,int $requestId, int $brandId , int $productId){
+        $request = $this->requestRepository->findById($requestId);
+        if(!$request)
+            throw new RequestNotFoundException();
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand)
+            throw new BrandNotFoundException();
+        $product = $this->productRepository->findById($productId);
+        if(!$product)
+            throw new ProductNotFoundException();
         $data = array_filter($updateRequest->toArray(), function ($value) {
             return !is_null($value);
         });

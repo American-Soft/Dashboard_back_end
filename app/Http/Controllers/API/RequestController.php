@@ -6,13 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequestReqest;
 use App\Http\Requests\StoreRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
-use App\Models\Brand;
-use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Request as ModelsRequest;
 use App\Services\interface\RequestServiceInterface;
 use App\trait\ApiResponse;
-use Illuminate\Http\Request;
 
 
 class RequestController extends Controller
@@ -20,9 +15,9 @@ class RequestController extends Controller
     use ApiResponse;
 
     public function __construct(protected RequestServiceInterface $requestService){}
-    public function store(StoreRequestReqest $request , Brand $brand , Product $product){
+    public function store(StoreRequestReqest $request , int $brandId , int $productId){
         
-        $result = $this->requestService->store($request , $brand , $product);
+        $result = $this->requestService->store($request , $brandId , $productId);
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
@@ -31,19 +26,19 @@ class RequestController extends Controller
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
-    public function show(ModelsRequest $request){
-        $result = $this->requestService->show($request);
+    public function show(int $requestId){
+        $result = $this->requestService->show($requestId);
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
-    public function delete(ModelsRequest $request){
-        $result = $this->requestService->delete($request);
+    public function delete(int $requestId){
+        $result = $this->requestService->delete($requestId);
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
 
-    public function update(UpdateRequestReqest $updateRequest,ModelsRequest $request, Brand $brand , Product $product){
-        $result = $this->requestService->update($updateRequest , $request , $brand , $product);
+    public function update(UpdateRequestReqest $updateRequest,int $requestId, int $brandId , int $productId){
+        $result = $this->requestService->update($updateRequest , $requestId , $brandId , $productId);
         return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 

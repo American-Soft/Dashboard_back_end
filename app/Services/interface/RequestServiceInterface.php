@@ -9,10 +9,10 @@ use App\Models\Product;
 use App\Models\Request as ModelsRequest;
 
 interface RequestServiceInterface{
-    public function store(StoreRequestReqest $request , Brand $brand , Product $product);
+    public function store(StoreRequestReqest $request , int $brandId , int $productId);
     public function index();
-    public function show(ModelsRequest $request);
-    public function delete(ModelsRequest $request);
-    public function update(UpdateRequestReqest $updateRequest,ModelsRequest $request, Brand $brand , Product $product);
+    public function show(int $requestId);
+    public function delete(int $requestId);
+    public function update(UpdateRequestReqest $updateRequest,int $requestId, int $brandId , int $productId);
     public function search(SearchRequestReqest $request);
 }

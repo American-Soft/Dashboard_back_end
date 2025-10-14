@@ -33,11 +33,11 @@ Route::delete('delete/customer/{customer}' , [CustomerController::class,'delete'
 Route::put('update/customer/{customer}' , [CustomerController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Customer']);
 
 //request
-Route::post('store/request/{brand}/{product}' , [RequestController::class,'store'])->middleware(['auth:sanctum' , 'permission:index Requests']);
+Route::post('store/request/{brandId}/{productId}' , [RequestController::class,'store'])->middleware(['auth:sanctum' , 'permission:index Requests']);
 Route::get('requests' ,[RequestController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Requests']);
-Route::get('request/{request}' , [RequestController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Request']);
-Route::delete('delete/request/{request}' , [RequestController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Request']);
-Route::put('update/request/{request}/{brand}/{product}' , [RequestController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Request']);
+Route::get('request/{requestId}' , [RequestController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Request']);
+Route::delete('delete/request/{requestId}' , [RequestController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Request']);
+Route::put('update/request/{requestId}/{brandId}/{productId}' , [RequestController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Request']);
 Route::get('search/request' , [RequestController::class,'search'])->middleware(['auth:sanctum' , 'permission:search Request']);
 
 //admin
