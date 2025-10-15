@@ -1,0 +1,57 @@
+<?php 
+namespace App\Services;
+
+use App\Exceptions\BrandNotFoundException;
+use App\Exceptions\ProductNotFoundException;
+use App\Http\Requests\StoreCustomerRequestRequest;
+use App\Repositories\interface\BrandRepositoryInterface;
+use App\Repositories\interface\CustomerRepositoryInterface;
+use App\Repositories\interface\ProductRepositoryInterface;
+use App\Repositories\interface\RequestRepositoryInterface;
+use App\Services\interface\CustomerRequestServiceInterface;
+use Exception;
+
+class CustomerRequestService implements CustomerRequestServiceInterface{
+    public function __construct(
+        protected CustomerRepositoryInterface $customerRepository , 
+        protected RequestRepositoryInterface $requestRepository ,
+        protected BrandRepositoryInterface $brandRepository , 
+        protected ProductRepositoryInterface $productRepository){}
+    public function store(StoreCustomerRequestRequest $request , int $brandId , int $productId){
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand){
+            throw new BrandNotFoundException();
+        }
+        $product = $this->productRepository->findById($productId);
+        if(!$product){
+            throw new ProductNotFoundException();
+        }
+        if($brand->id != $product->brand_id){
+            throw new Exception('Brand and product does not match');
+        }
+        $customer = $this->customerRepository->create([
+            'full_name' => $request['full_name'],
+            'phone_number' => $request['phone_number'],
+            'whatsapp_number' => $request['whatsapp_number'],
+            'whatsapp_number_code' => $request['whatsapp_number_code'],
+            'email' => $request['email'],
+        ]);
+
+        $request = $this->requestRepository->store([
+            'customer_id' => $customer->id,
+            'brand_id' => $brand->id,
+            'product_id' => $product->id,
+            'city' => $request['city'],
+            'governorate' => $request['governorate'],
+            'region' => $request['region'],
+            'address' => $request['address'],
+            'status' => $request['status'],
+            'problem_description' => $request['problem_description'],
+            'warranty_status' => $request['warranty_status'],
+            'note' => $request['note'],
+            'domain' => $request['domain'],
+        ]);
+
+        return $request->load('customer');
+    }
+}

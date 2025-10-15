@@ -2,7 +2,6 @@
 namespace App\Services\interface;
 
 use App\Http\Requests\UpdateUserRoleRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 interface UserServiceInterface{

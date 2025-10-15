@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Exceptions\AuthenticationException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
 use App\Repositories\interface\AuthRepositoryInterface;
 use App\Services\interface\AuthServiceInterface;
 use Illuminate\Http\Request;

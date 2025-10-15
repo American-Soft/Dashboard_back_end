@@ -68,4 +68,8 @@ class RequestRepository implements RequestRepositoryInterface{
     public function findById($id){
         return $this->request->with('customer')->where('id' , $id)->first();
     }
+
+    public function store(array $data){
+        return $this->request->create($data);
+    }
 }

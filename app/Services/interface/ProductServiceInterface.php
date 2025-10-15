@@ -3,8 +3,6 @@ namespace App\Services\interface;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Brand;
-use App\Models\Product;
 
 interface ProductServiceInterface{
     public function index();

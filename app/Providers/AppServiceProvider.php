@@ -16,9 +16,11 @@ use App\Repositories\RequestRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
+use App\Services\CustomerRequestService;
 use App\Services\CustomerService;
 use App\Services\interface\AuthServiceInterface;
 use App\Services\interface\BrandServiceInterface;
+use App\Services\interface\CustomerRequestServiceInterface;
 use App\Services\interface\CustomerServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\RequestServiceInterface;
@@ -99,6 +101,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             RequestRepositoryInterface::class,
             RequestRepository::class
+        );
+
+        $this->app->bind(
+            CustomerRequestServiceInterface::class,
+            CustomerRequestService::class
         );
         
     }

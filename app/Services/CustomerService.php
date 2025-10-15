@@ -6,12 +6,10 @@ use App\Exceptions\CustomersRequestsNotFoundException;
 use App\Exceptions\RequestNotFoundException;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
-use App\Models\Customer;
-use App\Models\Request as ModelsRequest;
 use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\RequestRepository;
 use App\Services\interface\CustomerServiceInterface;
-use PhpParser\Node\Expr\Throw_;
+
 
 class CustomerService implements CustomerServiceInterface{
 

@@ -51,4 +51,4 @@ Route::get('/user',[UserController::class,'profile'])->middleware(['auth:sanctum
 
 
 //all wep form
-Route::post('/store/customer/request/{brand}/{product}',[CustomerRequestController::class,'store']);
+Route::post('/store/customer/request/{brandId}/{productId}',[CustomerRequestController::class,'store']);

@@ -5,7 +5,6 @@ use App\Exceptions\BrandNotFoundException;
 use App\Exceptions\BrandsNotFoundException;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
-use App\Models\Brand;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Services\interface\BrandServiceInterface;
 

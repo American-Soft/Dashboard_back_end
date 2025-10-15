@@ -6,8 +6,6 @@ use App\Exceptions\ProductNotFoundException;
 use App\Exceptions\ProductsNotFoundException;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Brand;
-use App\Models\Product;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Services\interface\ProductServiceInterface;

@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Exceptions\UserNotFoundException;
 use App\Exceptions\UsersNotFoundException;
 use App\Http\Requests\UpdateUserRoleRequest;
-use App\Models\User;
 use App\Repositories\interface\UserRepositoryInterface;
 use App\Services\interface\UserServiceInterface;
 use Illuminate\Http\Request;
