@@ -4,7 +4,7 @@ namespace  App\Services\interface;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
 interface CustomerServiceInterface{
-    public function store(StoreCustomerReqest $storeCustomerReqest , int $requestId);
+    public function store(StoreCustomerReqest $storeCustomerReqest);
     public function index();
 
     public function show(int $customerId);

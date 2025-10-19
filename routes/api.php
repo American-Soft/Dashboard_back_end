@@ -26,7 +26,7 @@ Route::put('update/product/{productId}/{brandId}',[ProductController::class,'upd
 Route::delete('delete/product/{productId}',[ProductController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Product']);
 
 //customer
-Route::post('store/customer/{requestId}' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);
+Route::post('store/customer' , [CustomerController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Customer']);
 Route::get('customers' , [CustomerController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Customers']);
 Route::get('customer/{customerId}' , [CustomerController::class,'show'])->middleware(['auth:sanctum' , 'permission:get Customer']);
 Route::delete('delete/customer/{customerId}' , [CustomerController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Customer']);

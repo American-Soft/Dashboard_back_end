@@ -17,12 +17,8 @@ class CustomerService implements CustomerServiceInterface{
         protected CustomerRepositoryInterface $customerRepository , 
         protected RequestRepository $requestRepository){}
 
-    public function store(StoreCustomerReqest $storeCustomerRequest , int $requestiId){
-        $request = $this->requestRepository->findById($requestiId);
-        if(!$request)
-            Throw new RequestNotFoundException();
-        $customer = $this->customerRepository->create($storeCustomerRequest->toArray());
-        $request->update(['customer_id' => $customer->id]);
+    public function store(StoreCustomerReqest $storeCustomerRequest){
+        $customer = $this->customerRepository->create($storeCustomerRequest->validated());
         return ['data' => $customer , 'message' => 'Customer Request Stored Successfully' , 'status' => 201];
     }
     public function index(){
