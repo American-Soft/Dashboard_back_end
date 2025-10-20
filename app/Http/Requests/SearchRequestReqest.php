@@ -22,12 +22,14 @@ class SearchRequestReqest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'         => ['nullable', 'integer', 'exists:requests,id'],
-            'phone'      => ['nullable','regex:/^01[0125][0-9]{8}$/','exists:requests,phone_number'],
-            'brand_name' => ['nullable', 'string', 'exists:brands,name'],
-            'status'     => ['nullable', 'in:pending,approved,rejected,completed'], 
-            'created_at' => ['nullable', 'date'],
-            'domain'     => ['nullable', 'string', 'url','exists:requests,domain'],
+            'id'              => ['nullable', 'integer', 'exists:requests,id'],
+            'phone'           => ['nullable','regex:/^01[0125][0-9]{8}$/','exists:requests,phone_number'],
+            'brand_name'      => ['nullable', 'string'],
+            'product_name'    => ['nullable', 'string'],
+            'status'          => ['nullable', 'in:pending,approved,rejected,completed'], 
+            'created_at'      => ['nullable', 'date'],
+            'domain'          => ['nullable', 'string', 'url','exists:requests,domain'],
+            'warranty_status' => ['nullable', 'boolean'],
         ];
     }
 

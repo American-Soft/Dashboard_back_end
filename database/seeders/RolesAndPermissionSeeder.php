@@ -64,7 +64,6 @@ class RolesAndPermissionSeeder extends Seeder
             'update Product',
             'delete Product',
             'register',
-            'login',
             'logout',
             'index Customers',
             'insert Customer',
@@ -93,7 +92,6 @@ class RolesAndPermissionSeeder extends Seeder
             'insert Product',
             'update Product',
             'delete Product',
-            'login',
             'logout',
             'index Customers',
             'insert Customer',
@@ -108,17 +106,17 @@ class RolesAndPermissionSeeder extends Seeder
         ]);
         $customer_service = Role::create(['name' => 'customer_service' , 'guard_name' => 'api']);
         $customer_service->givePermissionTo([
-            'login',
             'logout',
             'index Customers',
             'insert Customer',
             'update Customer',
             'get Customer',
             'index Requests',
-            'insert Request',
             'update Request',
             'search Request',
             'get Request',
+            'index Brands',
+            'index Products',
             'profile user'
         ]);
     }

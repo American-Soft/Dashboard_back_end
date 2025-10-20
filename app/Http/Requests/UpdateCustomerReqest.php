@@ -30,7 +30,8 @@ class UpdateCustomerReqest extends FormRequest
                 'string',
                 'regex:/^\+\d{1,4}$/',
             ],
-            'email'                => ['nullable', 'email', 'max:255',]
+            'email'                => ['nullable', 'email', 'max:255',],
+            'address'              => ['nullable', 'string', 'max:255',],
         ];
     }
 }

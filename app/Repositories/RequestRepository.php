@@ -28,7 +28,7 @@ class RequestRepository implements RequestRepositoryInterface{
     }
 
     public function delete(Request $request){
-        $request->customer()->delete();
+        $request->delete();
         return $request->fresh();
     }
 
@@ -52,14 +52,22 @@ class RequestRepository implements RequestRepositoryInterface{
             if ($data['domain']) {
                 $q->orWhere('domain', 'like', '%' . $data['domain'] . '%');
             }
+            if(array_key_exists('warranty_status', $data) && $data['warranty_status'] != null){ 
+                $q->orWhere('warranty_status',  (int)$data['warranty_status']);
+            }
             if ($data['brand_name']) {
                 $q->orWhereHas('brand', function ($q) use ($data) {
                     $q->where('name', 'like', '%' . $data['brand_name'] . '%');
                 });
             }
-            if ($data['phone_number']) {
+            if($data['product_name']) {
+                $q->orWhereHas('product', function ($q) use ($data) {
+                    $q->where('name', 'like', '%' . $data['product_name'] . '%');
+                });
+            }
+            if ($data['phone']) {
                 $q->orWhereHas('customer', function ($q) use ($data) {
-                    $q->where('phone_number', 'like', '%' . $data['phone_number'] . '%');
+                    $q->where('phone_number', 'like', '%' . $data['phone'] . '%');
                 });
             }
         })->get();

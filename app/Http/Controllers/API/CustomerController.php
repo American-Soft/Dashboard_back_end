@@ -17,7 +17,8 @@ class CustomerController extends Controller
     public function __construct(protected CustomerServiceInterface $customerService){}
 
     public function store(StoreCustomerReqest $storeCustomerReqest){
-        $result = $this->customerService->store($storeCustomerReqest );
+        
+        $result = $this->customerService->store($storeCustomerReqest);
         return $this->successResponse($result['data'],$result['message'],   $result['status']);
     }
     public function index(){

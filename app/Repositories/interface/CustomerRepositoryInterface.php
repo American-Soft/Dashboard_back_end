@@ -10,4 +10,6 @@ interface CustomerRepositoryInterface{
     public function findById($id);
 
     public function show(int $customerId);
+
+    public function findByPhone(string $phone_number);
 }

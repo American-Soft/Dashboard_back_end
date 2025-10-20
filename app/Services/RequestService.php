@@ -36,7 +36,7 @@ class RequestService implements RequestServiceInterface{
         if($brand->id != $product->brand_id){
             throw new Exception('Brand and product does not match');
         }
-        $req = $this->requestRepository->create($request->toArray() , $brand , $product);
+        $req = $this->requestRepository->create($request->validated() , $brand , $product);
         return ['data'=>$req , 'message'=>'Request created successfully' , 'status'=>201];
     }
 
@@ -58,8 +58,6 @@ class RequestService implements RequestServiceInterface{
         $request = $this->requestRepository->findById($requestId);
         if(!$request)
             throw new RequestNotFoundException();
-        if($request->customer->id == 1)
-            throw new Exception('You can not delete this request');
         $this->requestRepository->delete($request);
         return ['data' => $request , 'message' => 'Delete Customer Request' , 'status' => 200];
     }
@@ -75,7 +73,7 @@ class RequestService implements RequestServiceInterface{
         $product = $this->productRepository->findById($productId);
         if(!$product)
             throw new ProductNotFoundException();
-        $data = array_filter($updateRequest->toArray(), function ($value) {
+        $data = array_filter($updateRequest->validated(), function ($value) {
             return !is_null($value);
         });
         $changes = [];
@@ -96,7 +94,7 @@ class RequestService implements RequestServiceInterface{
     }
 
     public function search(SearchRequestReqest $request){
-        $result = $this->requestRepository->search($request->toArray());
+        $result = $this->requestRepository->search($request->validated());
         return ['data' => $result , 'message' => 'Search Result' , 'status' => 200];
     }
 }

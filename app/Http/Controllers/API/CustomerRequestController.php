@@ -12,7 +12,7 @@ class CustomerRequestController extends Controller
     use ApiResponse;
     public function __construct(protected CustomerRequestServiceInterface $customerRequestService){}
     public function store(StoreCustomerRequestRequest $request , int $brandId , int $productId){
-        $customer_Request = $this->customerRequestService->store($request , $brandId , $productId);
-        return $this->successResponse($customer_Request , 'Request created successfully' , 201);
+        $result = $this->customerRequestService->store($request , $brandId , $productId);
+        return $this->successResponse($request['data'] , $request['message'] , $request['status']);
     }
 }

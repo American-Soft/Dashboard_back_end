@@ -18,24 +18,20 @@ class AuthService implements AuthServiceInterface{
             'password'     => bcrypt($request['password']),
         ]);
         $user->assignRole($request['role']);
-        $data['token']= $user->createToken('auth_token')->plainTextToken;
-        $data['user'] = $user;
-        $data['user']['roles'] = $user->getRoleNames();
-        return ['data' => $data , 'message' => 'User registered successfully' , 'status' => 201];
+        $user->token= $user->createToken('auth_token')->plainTextToken;
+        $user->role = $user->getRoleNames();
+        return ['data' => $user , 'message' => 'User registered successfully' , 'status' => 201];
     }
 
     public function login(LoginRequest $request){
-
-
         $user = $this->authRepositoryInterface->findByEmail($request['email']);
         if (!$user || !Hash::check($request['password'], $user->password)) {
             throw new AuthenticationException();
         }
         $user->tokens()->where('name', 'auth_token')->delete();
-        $data['token']= $user->createToken('auth_token')->plainTextToken;
-        $data['user']= $user;
-        $data['user']['roles'] = $user->getRoleNames();
-        return ['data' => $data , 'message' => 'User login successfully' , 'status' => 200];
+        $user->token= $user->createToken('auth_token')->plainTextToken;
+        $user->role = $user->getRoleNames();
+        return ['data' => $user , 'message' => 'User login successfully' , 'status' => 200];
     }
 
     public function logout(Request $request){

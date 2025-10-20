@@ -30,6 +30,7 @@ class StoreCustomerReqest extends FormRequest
                 'string',
                 'regex:/^\+\d{1,4}$/'
             ],
+            'address'              => ['required', 'string', 'max:255'],
             'email'                => ['nullable', 'email', 'max:255'],
         ];
     }

@@ -28,4 +28,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function show(int $customerId){
         return $this->customer->where('id' , $customerId)->with('requests')->first();
     }
+
+    public function findByPhone(string $phone_number){
+        return $this->customer->where('phone_number' , $phone_number)->first();
+    }
 }
