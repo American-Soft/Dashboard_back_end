@@ -13,6 +13,6 @@ class CustomerRequestController extends Controller
     public function __construct(protected CustomerRequestServiceInterface $customerRequestService){}
     public function store(StoreCustomerRequestRequest $request , int $brandId , int $productId){
         $result = $this->customerRequestService->store($request , $brandId , $productId);
-        return $this->successResponse($request['data'] , $request['message'] , $request['status']);
+        return $this->successResponse($result['data'] , $result['message'] , $result['status']);
     }
 }
