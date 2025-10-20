@@ -2,9 +2,9 @@
 namespace App\Services;
 
 use App\Exceptions\BrandNotFoundException;
+use App\Exceptions\BrandRelationProductsException;
 use App\Exceptions\ProductNotFoundException;
 use App\Exceptions\RequestNotFoundException;
-use App\Exceptions\RequestsNotFoundExcption;
 use App\Exceptions\UpdateExcption;
 use App\Http\Requests\SearchRequestReqest;
 use App\Http\Requests\StoreRequestReqest;
@@ -14,8 +14,6 @@ use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
 use App\Services\interface\RequestServiceInterface;
 
-use Exception;
-use function PHPUnit\Framework\isEmpty;
 
 class RequestService implements RequestServiceInterface{
 
@@ -27,14 +25,14 @@ class RequestService implements RequestServiceInterface{
     public function store(StoreRequestReqest $request , int $brandId , int $productId){
         $brand = $this->brandRepository->findById($brandId);
         if(!$brand){
-            throw new Exception('Brand not found');
+            throw new BrandNotFoundException();
         }
         $product = $this->productRepository->findById($productId);
         if(!$product){
-            throw new Exception('Product not found');
+            throw new ProductNotFoundException();
         }
         if($brand->id != $product->brand_id){
-            throw new Exception('Brand and product does not match');
+            throw new BrandRelationProductsException();
         }
         $req = $this->requestRepository->create($request->validated() , $brand , $product);
         return ['data'=>$req , 'message'=>'Request created successfully' , 'status'=>201];
@@ -42,8 +40,6 @@ class RequestService implements RequestServiceInterface{
 
     public function index(){
         $requests = $this->requestRepository->all();
-        if($requests->isEmpty())
-            throw new RequestsNotFoundExcption();
         return ['data' => $requests , 'message' => 'Customers Requests' , 'status' => 200];
     }
 
@@ -73,6 +69,9 @@ class RequestService implements RequestServiceInterface{
         $product = $this->productRepository->findById($productId);
         if(!$product)
             throw new ProductNotFoundException();
+        if($brand->id != $product->brand_id){
+            throw new BrandRelationProductsException();
+        }
         $data = array_filter($updateRequest->validated(), function ($value) {
             return !is_null($value);
         });

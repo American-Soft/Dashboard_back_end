@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Exceptions\UserNotFoundException;
-use App\Exceptions\UsersNotFoundException;
 use App\Http\Requests\UpdateUserRoleRequest;
 use App\Repositories\interface\UserRepositoryInterface;
 use App\Services\interface\UserServiceInterface;
@@ -13,10 +12,6 @@ class UserService implements UserServiceInterface{
     public function __construct(protected UserRepositoryInterface $userRepositoryInterface){}
     public function index(){
         $users = $this->userRepositoryInterface->all();
-        if($users->isEmpty()
-            ){
-            throw new UsersNotFoundException();
-        }
         return ['data' => $users , 'message' => 'Users retrieved successfully' , 'status' =>200];
     }
 

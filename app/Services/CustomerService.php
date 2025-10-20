@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Exceptions\CustomerNotFoundException;
-use App\Exceptions\CustomersRequestsNotFoundException;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
 use App\Repositories\interface\CustomerRepositoryInterface;
@@ -31,6 +30,8 @@ class CustomerService implements CustomerServiceInterface{
 
     public function show(int $customerId){
         $customer = $this->customerRepository->show($customerId);
+        if(!$customer)
+            throw new CustomerNotFoundException();
         return ['data' => $customer->load('requests') , 'message' => 'Customer Requests' , 'status' => 200];
     }
 

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
-use App\Models\Customer;
-use App\Models\Request as ModelsRequest;
 use App\Services\interface\CustomerServiceInterface;
 use App\trait\ApiResponse;
 

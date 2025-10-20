@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Exceptions\BrandNotFoundException;
+use App\Exceptions\BrandRelationProductsException;
 use App\Exceptions\ProductNotFoundException;
 use App\Http\Requests\StoreCustomerRequestRequest;
 use App\Repositories\interface\BrandRepositoryInterface;
@@ -9,7 +10,6 @@ use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
 use App\Services\interface\CustomerRequestServiceInterface;
-use Exception;
 
 class CustomerRequestService implements CustomerRequestServiceInterface{
     public function __construct(
@@ -27,7 +27,7 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             throw new ProductNotFoundException();
         }
         if($brand->id != $product->brand_id){
-            throw new Exception('Brand and product does not match');
+            throw new BrandRelationProductsException();
         }
         $customer = $this->customerRepository->findByPhone($request->validated()['phone_number']);
         if($customer){  

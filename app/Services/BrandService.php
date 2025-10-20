@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Exceptions\BrandNotFoundException;
-use App\Exceptions\BrandsNotFoundException;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use App\Repositories\interface\BrandRepositoryInterface;
@@ -22,9 +21,6 @@ class BrandService implements BrandServiceInterface{
 
     public function index(){
         $brands = $this->brandRepository->all();
-        if($brands->isEmpty()) {
-            throw new BrandsNotFoundException();
-        }
         return ['data' => $brands , 'message' => 'Brands retrieved successfully', 'status' => 200];
     }
 

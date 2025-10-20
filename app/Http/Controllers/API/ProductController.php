@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Brand;
-use App\Models\Product;
 use App\Services\interface\ProductServiceInterface;
 use App\trait\ApiResponse;
 
