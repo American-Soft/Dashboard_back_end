@@ -84,9 +84,11 @@ class RequestService implements RequestServiceInterface{
                 $changes[$key] = $value;
             }
         }
-        if (!empty($changes)) {
+        if($request->brand_id != $brand->id){}
             $changes['brand_id'] = $brand->id;
+        if($request->product_id != $product->id)
             $changes['product_id'] = $product->id;
+        if (!empty($changes)) {
             $this->requestRepository->update($request,$changes);
             return ['data' => $request, 'message' => 'request updated successfully', 'status' => 200];
         }
