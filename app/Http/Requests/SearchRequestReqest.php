@@ -23,7 +23,7 @@ class SearchRequestReqest extends FormRequest
     {
         return [
             'id'              => ['nullable', 'integer', 'exists:requests,id'],
-            'phone'           => ['nullable','regex:/^01[0125][0-9]{8}$/','exists:requests,phone_number'],
+            'phone'           => ['nullable','regex:/^01[0125][0-9]{8}$/','exists:customers,phone_number'],
             'brand_name'      => ['nullable', 'string'],
             'product_name'    => ['nullable', 'string'],
             'status'          => ['nullable', 'in:pending,approved,rejected,completed'], 
