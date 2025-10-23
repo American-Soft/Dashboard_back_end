@@ -44,29 +44,29 @@ class RequestRepository implements RequestRepositoryInterface{
                 $q->where('id', 'like', '%' . $data['id'] . '%');
             }
             if ($data['created_at']) {
-                $q->orWhere('created_at', 'like', '%'.$data['created_at'].'%');
+                $q->Where('created_at', 'like', '%'.$data['created_at'].'%');
             }
             if ($data['status']) {
-                $q->orWhere('status', 'like', '%' . $data['status'] . '%');
+                $q->Where('status', 'like', '%' . $data['status'] . '%');
             }
             if ($data['domain']) {
-                $q->orWhere('domain', 'like', '%' . $data['domain'] . '%');
+                $q->Where('domain', 'like', '%' . $data['domain'] . '%');
             }
             if(array_key_exists('warranty_status', $data) && $data['warranty_status'] != null){ 
-                $q->orWhere('warranty_status',  (int)$data['warranty_status']);
+                $q->Where('warranty_status',  (int)$data['warranty_status']);
             }
             if ($data['brand_name']) {
-                $q->orWhereHas('brand', function ($q) use ($data) {
+                $q->WhereHas('brand', function ($q) use ($data) {
                     $q->where('name', 'like', '%' . $data['brand_name'] . '%');
                 });
             }
             if($data['product_name']) {
-                $q->orWhereHas('product', function ($q) use ($data) {
+                $q->WhereHas('product', function ($q) use ($data) {
                     $q->where('name', 'like', '%' . $data['product_name'] . '%');
                 });
             }
             if ($data['phone']) {
-                $q->orWhereHas('customer', function ($q) use ($data) {
+                $q->WhereHas('customer', function ($q) use ($data) {
                     $q->where('phone_number', 'like', '%' . $data['phone'] . '%');
                 });
             }
