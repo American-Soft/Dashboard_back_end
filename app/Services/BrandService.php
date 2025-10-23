@@ -24,6 +24,14 @@ class BrandService implements BrandServiceInterface{
         return ['data' => $brands , 'message' => 'Brands retrieved successfully', 'status' => 200];
     }
 
+    public function show(int $brandId){
+        $brand = $this->brandRepository->findById($brandId);
+        if(!$brand) {
+            throw new BrandNotFoundException();
+        }
+        return ['data' => $brand->load('products') , 'message' => 'Brand retrieved successfully', 'status' => 200];
+    }
+
     public function update(UpdateBrandRequest $request,int $brandId)
     {
         $brand = $this->brandRepository->findById($brandId);

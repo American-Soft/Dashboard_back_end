@@ -26,6 +26,11 @@ class BrandController extends Controller
         return $this->successResponse($result['data'], $result['message'], $result['status']);
     }
 
+    public function show(int $brandId){
+        $result = $this->brandServiceInterface->show($brandId);
+        return $this->successResponse($result['data'], $result['message'], $result['status']);
+    }
+
     public function update(UpdateBrandRequest $request,int $brandId)
     {
         $result =$this->brandServiceInterface->update($request , $brandId);

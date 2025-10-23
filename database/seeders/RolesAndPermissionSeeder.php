@@ -17,6 +17,7 @@ class RolesAndPermissionSeeder extends Seeder
     {
         //Brand admin and super
         Permission::create(['name' => 'index Brands' , 'guard_name' => 'api']);
+        Permission::create(['name' => 'show Brand'   , 'guard_name' => 'api']);
         Permission::create(['name' => 'insert Brand' , 'guard_name' => 'api']);
         Permission::create(['name' => 'update Brand' , 'guard_name' => 'api']);
         Permission::create(['name' => 'delete Brand' , 'guard_name' => 'api']);
@@ -29,33 +30,34 @@ class RolesAndPermissionSeeder extends Seeder
         
         //Auth super admin
         Permission::create(['name' => 'register' , 'guard_name' => 'api']);//super admin
-        Permission::create(['name' => 'login' , 'guard_name' => 'api']);
-        Permission::create(['name' => 'logout' , 'guard_name' => 'api']);
+        Permission::create(['name' => 'login'    , 'guard_name' => 'api']);
+        Permission::create(['name' => 'logout'   , 'guard_name' => 'api']);
         
         //Customer 
         Permission::create(['name' => 'index Customers' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'insert Customer' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'update Customer' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'delete Customer' , 'guard_name' => 'api']);//admin and super
-        Permission::create(['name' => 'get Customer' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'get Customer'    , 'guard_name' => 'api']);//all
 
         //Request
         Permission::create(['name' => 'index Requests' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'insert Request' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'update Request' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'delete Request' , 'guard_name' => 'api']);//admin and super
-        Permission::create(['name' => 'get Request' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'get Request'    , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'search Request' , 'guard_name' => 'api']);//all
         
-        Permission::create(['name' => 'users' , 'guard_name' => 'api']);//super admin
+        Permission::create(['name' => 'users'            , 'guard_name' => 'api']);//super admin
         Permission::create(['name' => 'update user role' , 'guard_name' => 'api']);//super admin
-        Permission::create(['name' => 'delete user' , 'guard_name' => 'api']);//super admin
-        Permission::create(['name' => 'show user' , 'guard_name' => 'api']);//super admin
-        Permission::create(['name' => 'profile user' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'delete user'      , 'guard_name' => 'api']);//super admin
+        Permission::create(['name' => 'show user'        , 'guard_name' => 'api']);//super admin
+        Permission::create(['name' => 'profile user'     , 'guard_name' => 'api']);//all
 
         $super_admin = Role::create(['name' => 'super_admin' , 'guard_name' => 'api']);
         $super_admin->givePermissionTo([
             'index Brands',
+            'show Brand',
             'insert Brand',
             'update Brand',
             'delete Brand',
@@ -85,6 +87,7 @@ class RolesAndPermissionSeeder extends Seeder
         $admin = Role::create(['name' => 'admin' , 'guard_name' => 'api']);
         $admin->givePermissionTo([
             'index Brands',
+            'show Brand',
             'insert Brand',
             'update Brand',
             'delete Brand',
@@ -116,6 +119,7 @@ class RolesAndPermissionSeeder extends Seeder
             'search Request',
             'get Request',
             'index Brands',
+            'show Brand',
             'index Products',
             'profile user'
         ]);

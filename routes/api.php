@@ -16,6 +16,7 @@ Route::post('/logout',[AuthController::class,'logout'])->middleware(['auth:sanct
 //brand
 Route::post('store/brand',[BrandController::class,'store'])->middleware(['auth:sanctum' , 'permission:insert Brand']);
 Route::get('brands',[BrandController::class,'index'])->middleware(['auth:sanctum' , 'permission:index Brands']);
+Route::get('brand/{brandId}',[BrandController::class,'show'])->middleware(['auth:sanctum' , 'permission:show Brand']);
 Route::put('update/brand/{brandId}',[BrandController::class,'update'])->middleware(['auth:sanctum' , 'permission:update Brand']);
 Route::delete('delete/brand/{brandId}',[BrandController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete Brand']);
 
