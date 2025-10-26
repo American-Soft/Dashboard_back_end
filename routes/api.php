@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\CustomerRequestController;
+use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RequestController;
 use App\Http\Controllers\AUTH\AuthController;
@@ -53,3 +54,8 @@ Route::get('/user',[UserController::class,'profile'])->middleware(['auth:sanctum
 
 //all wep form
 Route::post('/store/customer/request/{brandId}/{productId}',[CustomerRequestController::class,'store']);
+
+Route::get('/notifications',[NotificationController::class,'index'])->middleware(['auth:sanctum']);
+Route::get('/unread/notifications',[NotificationController::class,'unreadNotification'])->middleware(['auth:sanctum']);
+Route::get('/read/notifications',[NotificationController::class,'readNotification'])->middleware(['auth:sanctum']);
+Route::post('/mark/read/notification/{notificationId}',[NotificationController::class,'markAsRead'])->middleware(['auth:sanctum']);

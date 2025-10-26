@@ -36,10 +36,10 @@ class StoreCustomerRequestRequest extends FormRequest
             'governorate'          => ['required', 'string', 'max:100'],
             'region'               => ['required', 'string', 'max:100'],
             'address_order'        => ['required', 'string', 'min:10'],
-            'status'               => ['required', 'string', 'max:150'],
+            'status'               => ['required', 'string', 'in:return_without_repair,repair_outside_company,pending,drag_done,service_done,discover,cancelled,not_distributed,tracking,return,completed'],
             'problem_description'  => ['required', 'string', 'min:5'],
             'warranty_status'      => ['required', 'boolean'],
-            'note'                 => ['required', 'string','min:5'],
+            'note'                 => ['nullable', 'string','min:5'],
             'domain'               => ['required', 'string', 'url'],
         ];
     }

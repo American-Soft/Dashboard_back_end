@@ -24,7 +24,7 @@ class CustomerService implements CustomerServiceInterface{
         return ['data' => $customer , 'message' => 'Customer Request Stored Successfully' , 'status' => 201];
     }
     public function index(){
-        $customers = $this->customerRepository->all();
+        $customers = $this->customerRepository->all(15, 'customer');
         return ['data' => $customers , 'message' => 'Customers Requests' , 'status' => 200];
     }
 

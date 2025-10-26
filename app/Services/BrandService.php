@@ -20,7 +20,7 @@ class BrandService implements BrandServiceInterface{
     }
 
     public function index(){
-        $brands = $this->brandRepository->all();
+        $brands = $this->brandRepository->all(15, 'brand');
         return ['data' => $brands , 'message' => 'Brands retrieved successfully', 'status' => 200];
     }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequestReqest;
-use App\Http\Requests\StoreRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
 use App\Services\interface\RequestServiceInterface;
 use App\trait\ApiResponse;
@@ -15,11 +14,6 @@ class RequestController extends Controller
     use ApiResponse;
 
     public function __construct(protected RequestServiceInterface $requestService){}
-    public function store(StoreRequestReqest $request , int $brandId , int $productId){
-        
-        $result = $this->requestService->store($request , $brandId , $productId);
-        return $this->successResponse($result['data'],$result['message'],$result['status']);
-    }
 
     public function index(){
         $result = $this->requestService->index();

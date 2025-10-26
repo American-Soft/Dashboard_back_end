@@ -7,8 +7,8 @@ use App\Repositories\interface\BrandRepositoryInterface;
 class BrandRepository implements BrandRepositoryInterface{
     public function __construct(protected Brand $brand){}
 
-    public function all(){
-        return $this->brand->withCount('requests')->get();
+    public function all($perPage, $pageName = 'page'){
+        return $this->brand->withCount('requests')->paginate($perPage,['*'],$pageName);
     }
 
     public function create(array $data){

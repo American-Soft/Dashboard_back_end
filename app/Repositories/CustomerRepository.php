@@ -7,9 +7,9 @@ use App\Repositories\interface\CustomerRepositoryInterface;
 class CustomerRepository implements CustomerRepositoryInterface
 {
     public function __construct(protected Customer $customer){}
-    public function all()
+    public function all($perPage, $pageName = 'page')
     {
-        return Customer::all();
+        return Customer::paginate($perPage,['*'],$pageName);
     }
 
     public function create(array $data){

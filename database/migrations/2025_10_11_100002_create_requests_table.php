@@ -17,11 +17,16 @@ return new class extends Migration
             $table->string('governorate');
             $table->string('region');
             $table->text('address');
-            $table->string('status')->default('pending');
+            $table->string('status')->nullable()->default('pending');
             $table->text('problem_description');
             $table->boolean('warranty_status');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->string('domain');
+            $table->string('technician_name')->nullable();
+            $table->timestamp('device_drag_time')->nullable();
+            $table->timestamp('device_delivery_time')->nullable();
+            $table->boolean('is_location')->nullable();
+            $table->boolean('is_image')->nullable();
             $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');

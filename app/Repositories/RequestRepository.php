@@ -1,38 +1,28 @@
 <?php 
 namespace App\Repositories;
 
-use App\Models\Brand;
-use App\Models\Product;
-use App\Models\Request;
+use App\Models\Request as RequestModel;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
 
-use function PHPUnit\Framework\isEmpty;
-
 class RequestRepository implements RequestRepositoryInterface{
-    public function __construct(protected Request $request , protected BrandRepositoryInterface $brandRepository){}
+    public function __construct(protected RequestModel $request , protected BrandRepositoryInterface $brandRepository){}
 
-    public function all(){
-        return $this->request->with('customer')->get();
-    }
-    public function create(array $data , Brand $brand , Product $product){
-        $data['brand_id'] = $brand->id;
-        $data['product_id'] = $product->id;
-        $data['customer_id'] = 1;
-        return $this->request->create($data);
+    public function all($perPage, $pageName = 'page'){
+        return $this->request->with('customer')->paginate($perPage,['*'],$pageName);
     }
 
-    public function update(Request $request,array $data){
+    public function update(RequestModel $request,array $data){
         $request->update($data);
         return $request->fresh();
     }
 
-    public function delete(Request $request){
+    public function delete(RequestModel $request){
         $request->delete();
         return $request->fresh();
     }
 
-    public function show(Request $request){
+    public function show(RequestModel $request){
         return $request->load('customer');
     }
 

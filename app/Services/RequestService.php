@@ -7,7 +7,6 @@ use App\Exceptions\ProductNotFoundException;
 use App\Exceptions\RequestNotFoundException;
 use App\Exceptions\UpdateExcption;
 use App\Http\Requests\SearchRequestReqest;
-use App\Http\Requests\StoreRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
@@ -22,24 +21,8 @@ class RequestService implements RequestServiceInterface{
         protected BrandRepositoryInterface $brandRepository , 
         protected ProductRepositoryInterface $productRepository){}
 
-    public function store(StoreRequestReqest $request , int $brandId , int $productId){
-        $brand = $this->brandRepository->findById($brandId);
-        if(!$brand){
-            throw new BrandNotFoundException();
-        }
-        $product = $this->productRepository->findById($productId);
-        if(!$product){
-            throw new ProductNotFoundException();
-        }
-        if($brand->id != $product->brand_id){
-            throw new BrandRelationProductsException();
-        }
-        $req = $this->requestRepository->create($request->validated() , $brand , $product);
-        return ['data'=>$req , 'message'=>'Request created successfully' , 'status'=>201];
-    }
-
     public function index(){
-        $requests = $this->requestRepository->all();
+        $requests = $this->requestRepository->all(15, 'request');
         return ['data' => $requests , 'message' => 'Customers Requests' , 'status' => 200];
     }
 
@@ -76,18 +59,16 @@ class RequestService implements RequestServiceInterface{
             return !is_null($value);
         });
         $changes = [];
-        foreach ($data as $key => $value) {
-            if ($request->$key != $value) {
+        foreach ($data as $key => $value) 
+            if ($request->$key != $value) 
                 $changes[$key] = $value;
-            }
-        }
-        if($request->brand_id != $brand->id){}
+        if($request->brand_id != $brand->id)
             $changes['brand_id'] = $brand->id;
         if($request->product_id != $product->id)
             $changes['product_id'] = $product->id;
         if (!empty($changes)) {
-            $this->requestRepository->update($request,$changes);
-            return ['data' => $request, 'message' => 'request updated successfully', 'status' => 200];
+            $request = $this->requestRepository->update($request,$changes);
+            return ['data' => $request->fresh(), 'message' => 'request updated successfully', 'status' => 200];
         }
         return throw new UpdateExcption();
     }

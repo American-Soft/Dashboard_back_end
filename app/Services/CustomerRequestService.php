@@ -5,18 +5,22 @@ use App\Exceptions\BrandNotFoundException;
 use App\Exceptions\BrandRelationProductsException;
 use App\Exceptions\ProductNotFoundException;
 use App\Http\Requests\StoreCustomerRequestRequest;
+use App\Notifications\CustomerRequestNotification;
 use App\Repositories\interface\BrandRepositoryInterface;
 use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
+use App\Repositories\interface\UserRepositoryInterface;
 use App\Services\interface\CustomerRequestServiceInterface;
+use Illuminate\Support\Facades\Notification;
 
 class CustomerRequestService implements CustomerRequestServiceInterface{
     public function __construct(
         protected CustomerRepositoryInterface $customerRepository , 
         protected RequestRepositoryInterface $requestRepository ,
         protected BrandRepositoryInterface $brandRepository , 
-        protected ProductRepositoryInterface $productRepository){}
+        protected ProductRepositoryInterface $productRepository,
+        protected UserRepositoryInterface $userRepository){}
     public function store(StoreCustomerRequestRequest $request , int $brandId , int $productId){
         $brand = $this->brandRepository->findById($brandId);
         if(!$brand){
@@ -44,17 +48,22 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             'warranty_status' => $request['warranty_status'],
             'note' => $request['note'],
             'domain' => $request['domain'],
-        ]);
-        return ['data' => $request->load('customer') , 'message' => 'Request created successfully' , 'status' => 201];
-    }
-    $customer = $this->customerRepository->create([
+            ]);
+            $users = $this->userRepository->all();
+            Notification::send($users, new CustomerRequestNotification($request->domain));
+            return ['data' => $request->load('customer') , 'message' => 'Request created successfully' , 'status' => 201];
+        }
+        $customer = $this->customerRepository->create([
+            
             'full_name' => $request['full_name'],
             'phone_number' => $request['phone_number'],
             'whatsapp_number' => $request['whatsapp_number'],
             'whatsapp_number_code' => $request['whatsapp_number_code'],
             'email' => $request['email'],
             'address' => $request['address_customer'],
+            
         ]);
+        
         $request = $this->requestRepository->store([
             'customer_id' => $customer->id,
             'brand_id' => $brand->id,
@@ -69,6 +78,9 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             'note' => $request['note'],
             'domain' => $request['domain'],
         ]);
+        $users = $this->userRepository->all();
+        Notification::send($users, new CustomerRequestNotification($request->domain));
         return ['data' => $request->load('customer') , 'message' => 'Request created successfully' , 'status' => 201];
     }
+
 }
