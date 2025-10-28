@@ -50,7 +50,7 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             'domain' => $request['domain'],
             ]);
             $users = $this->userRepository->all();
-            Notification::send($users, new CustomerRequestNotification($request->domain));
+            Notification::send($users, new CustomerRequestNotification($request->domain , $request->id));
             return ['data' => $request->load('customer') , 'message' => 'Request created successfully' , 'status' => 201];
         }
         $customer = $this->customerRepository->create([
@@ -79,7 +79,7 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             'domain' => $request['domain'],
         ]);
         $users = $this->userRepository->all();
-        Notification::send($users, new CustomerRequestNotification($request->domain));
+        Notification::send($users, new CustomerRequestNotification($request->domain , $request->id));
         return ['data' => $request->load('customer') , 'message' => 'Request created successfully' , 'status' => 201];
     }
 

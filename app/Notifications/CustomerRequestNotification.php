@@ -11,14 +11,16 @@ class CustomerRequestNotification extends Notification
 {
     use Queueable;
     private $domain;
+    private $request_id;
 
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($domain)
+    public function __construct($domain , $request_id)
     {
         $this->domain = $domain;
+        $this->request_id = $request_id;
     }
 
     /**
@@ -52,6 +54,7 @@ class CustomerRequestNotification extends Notification
         return [
             'title'=> 'New Order',
             'domain' => $this->domain,
+            'request_id' => $this->request_id
         ];
     }
 }
