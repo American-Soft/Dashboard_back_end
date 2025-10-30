@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequestReqest;
 use App\Http\Requests\UpdateRequestReqest;
 use App\Services\interface\RequestServiceInterface;
-use App\trait\ApiResponse;
+use App\Trait\ApiResponse;
 
 
 class RequestController extends Controller

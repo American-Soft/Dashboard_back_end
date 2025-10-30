@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomerReqest;
 use App\Http\Requests\UpdateCustomerReqest;
 use App\Services\interface\CustomerServiceInterface;
-use App\trait\ApiResponse;
+use App\Trait\ApiResponse;
 
 class CustomerController extends Controller
 {

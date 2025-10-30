@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use App\Services\interface\BrandServiceInterface;
-use App\trait\ApiResponse;
+use App\Trait\ApiResponse;
 
 class BrandController extends Controller
 {

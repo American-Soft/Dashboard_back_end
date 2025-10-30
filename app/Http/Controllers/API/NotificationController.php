@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\trait\ApiResponse;
+use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
