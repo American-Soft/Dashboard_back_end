@@ -18,7 +18,6 @@ class AuthService implements AuthServiceInterface{
             'password'     => bcrypt($request['password']),
         ]);
         $user->assignRole($request['role']);
-        $user->token= $user->createToken('auth_token')->plainTextToken;
         $user->role = $user->getRoleNames();
         return ['data' => $user , 'message' => 'User registered successfully' , 'status' => 201];
     }
