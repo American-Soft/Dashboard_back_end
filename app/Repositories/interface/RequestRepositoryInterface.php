@@ -11,5 +11,6 @@ interface RequestRepositoryInterface{
     public function search(array $data);
     public function findById($id);
 
+    public function checkById($id);
     public function store(array $data);
 }

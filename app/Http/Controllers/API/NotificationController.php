@@ -3,30 +3,34 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Services\interface\NotificationServiceInterface;
 use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
     use ApiResponse;
+
+    public function __construct(protected NotificationServiceInterface $notificationService){}
+
     public function index(Request $request){
-        $notifications = $request->user()->notifications;
-        return $this->successResponse($notifications , 'Notifications Retrieved Success' , 200);
+        $result = $this->notificationService->index($request);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function unreadNotification(Request $request){
-        $notifications = $request->user()->unreadNotifications;
-        return $this->successResponse($notifications , 'Notifications Retrieved Success' , 200);
+        $result = $this->notificationService->unreadNotification($request);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function readNotification(Request $request){
-        $notifications = $request->user()->readNotifications;
-        return $this->successResponse($notifications , 'Notifications Retrieved Success' , 200);
+        $result = $this->notificationService->readNotification($request);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 
     public function markAsRead(Request $request , $notificationId){
-        $notification = $request->user()->notifications()->find($notificationId);
-        $notification->markAsRead();
-        return $this->successResponse($notification , 'Notification Marked As Read' , 200);
+        $result = $this->notificationService->markAsRead($request , $notificationId);
+        return $this->successResponse($result['data'],$result['message'],$result['status']);
     }
 }

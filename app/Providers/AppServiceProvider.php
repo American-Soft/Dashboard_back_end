@@ -22,9 +22,11 @@ use App\Services\interface\AuthServiceInterface;
 use App\Services\interface\BrandServiceInterface;
 use App\Services\interface\CustomerRequestServiceInterface;
 use App\Services\interface\CustomerServiceInterface;
+use App\Services\interface\NotificationServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\RequestServiceInterface;
 use App\Services\interface\UserServiceInterface;
+use App\Services\NotificationService;
 use App\Services\ProductService;
 use App\Services\RequestService;
 use App\Services\UserService;
@@ -106,6 +108,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CustomerRequestServiceInterface::class,
             CustomerRequestService::class
+        );
+
+        $this->app->bind(
+            NotificationServiceInterface::class,
+            NotificationService::class
         );
         
     }

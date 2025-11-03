@@ -70,4 +70,8 @@ class RequestRepository implements RequestRepositoryInterface{
     public function store(array $data){
         return $this->request->create($data);
     }
+
+    public function checkById($id){
+        return $this->request->where('id' , $id)->exists();
+    }
 }
