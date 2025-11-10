@@ -39,7 +39,7 @@ class StoreCustomerRequestRequest extends FormRequest
             'status'               => ['required', 'string', 'in:return_without_repair,repair_outside_company,pending,drag_done,service_done,discover,cancelled,not_distributed,tracking,return,completed'],
             'problem_description'  => ['required', 'string', 'min:1'],
             'warranty_status'      => ['required', 'boolean'],
-            'customer_note'        => ['nullable', 'string', 'min:1'],
+            'note'        => ['nullable', 'string', 'min:1'],
             'domain'               => ['required', 'string', 'url'],
         ];
     }
