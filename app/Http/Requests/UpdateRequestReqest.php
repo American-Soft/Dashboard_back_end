@@ -26,7 +26,7 @@ class UpdateRequestReqest extends FormRequest
             'governorate'          => ['nullable', 'string', 'max:100'],
             'region'               => ['nullable', 'string', 'max:100'],
             'address'              => ['nullable', 'string', 'min:10'],
-            'status'               => ['nullable', 'string', 'in:return_without_repair,repair_outside_company,pending,drag_done,service_done,discover,cancelled,not_distributed,tracking,return,completed'],
+            'status'               => ['nullable', 'string', 'in:return_without_repair,repair_outside_company,pending,drag_done,service_done,discover,cancelled,not_distributed,tracking,return,completed','out_of_range'],
             'problem_description'  => ['nullable', 'string', 'min:10'],
             'warranty_status'      => ['nullable', 'boolean'],
             'note'                 => ['nullable', 'string','min:5'],
