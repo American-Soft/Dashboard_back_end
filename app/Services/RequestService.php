@@ -66,6 +66,18 @@ class RequestService implements RequestServiceInterface{
             $changes['brand_id'] = $brand->id;
         if($request->product_id != $product->id)
             $changes['product_id'] = $product->id;
+        $existingNote = $request->note ?? [];
+        $newNoteData = [];
+        if(isset($data['customer_service_note'])){
+            if (isset($request->note['customer_service_note'])) {
+                if ($request->note['customer_service_note'] != $data['customer_service_note']) {
+                    $newNoteData['customer_service_note'] = $data['customer_service_note'];
+                    $mergedNote = array_merge($existingNote, $newNoteData);
+                    $changes['note'] = $mergedNote;
+                }
+            }
+        }
+        
         if (!empty($changes)) {
             $request = $this->requestRepository->update($request,$changes);
             return ['data' => $request->fresh(), 'message' => 'request updated successfully', 'status' => 200];

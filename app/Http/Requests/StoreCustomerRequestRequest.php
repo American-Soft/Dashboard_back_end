@@ -37,9 +37,9 @@ class StoreCustomerRequestRequest extends FormRequest
             'region'               => ['required', 'string', 'max:100'],
             'address_order'        => ['required', 'string', 'min:10'],
             'status'               => ['required', 'string', 'in:return_without_repair,repair_outside_company,pending,drag_done,service_done,discover,cancelled,not_distributed,tracking,return,completed'],
-            'problem_description'  => ['required', 'string', 'min:5'],
+            'problem_description'  => ['required', 'string', 'min:1'],
             'warranty_status'      => ['required', 'boolean'],
-            'note'                 => ['nullable', 'string','min:5'],
+            'customer_note'        => ['nullable', 'string', 'min:1'],
             'domain'               => ['required', 'string', 'url'],
         ];
     }

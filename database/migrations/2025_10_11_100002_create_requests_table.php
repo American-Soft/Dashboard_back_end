@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status')->nullable()->default('pending');
             $table->text('problem_description');
             $table->boolean('warranty_status');
-            $table->text('note')->nullable();
+            $table->json('note')->nullable();
             $table->string('domain');
             $table->string('technician_name')->nullable();
             $table->timestamp('device_drag_time')->nullable();
