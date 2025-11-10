@@ -69,13 +69,16 @@ class RequestService implements RequestServiceInterface{
         $existingNote = $request->note ?? [];
         $newNoteData = [];
         if(isset($data['customer_service_note'])){
-            if (isset($request->note['customer_service_note'])) {
+            if(isset($existingNote['customer_service_note'])){
                 if ($request->note['customer_service_note'] != $data['customer_service_note']) {
                     $newNoteData['customer_service_note'] = $data['customer_service_note'];
                     $mergedNote = array_merge($existingNote, $newNoteData);
                     $changes['note'] = $mergedNote;
                 }
             }
+            $newNoteData['customer_service_note'] = $data['customer_service_note'];
+            $mergedNote = array_merge($existingNote, $newNoteData);
+            $changes['note'] = $mergedNote;
         }
         
         if (!empty($changes)) {

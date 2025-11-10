@@ -46,9 +46,7 @@ class CustomerRequestService implements CustomerRequestServiceInterface{
             'status' => $request['status'],
             'problem_description' => $request['problem_description'],
             'warranty_status' => $request['warranty_status'],
-            'note' => [
-            'customer_note' => $request['note'],
-        ],
+            'note' => ['customer_note' => $request['note']],
             'domain' => $request['domain'],
             ]);
             $users = $this->userRepository->all();
