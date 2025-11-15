@@ -12,9 +12,12 @@ use App\Repositories\interface\CustomerRepositoryInterface;
 use App\Repositories\Interface\EmployeeRepositoryInterface;
 use App\Repositories\interface\ProductRepositoryInterface;
 use App\Repositories\interface\RequestRepositoryInterface;
+use App\Repositories\Interface\TransactionRepositoryInterface;
+use App\Repositories\Interface\TreasuryRepositoryInterface;
 use App\Repositories\interface\UserRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\RequestRepository;
+use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
@@ -29,10 +32,13 @@ use App\Services\Interface\EmployeeServiceInterface;
 use App\Services\interface\NotificationServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\RequestServiceInterface;
+use App\Services\Interface\TransactionServiceInterface;
 use App\Services\interface\UserServiceInterface;
 use App\Services\NotificationService;
 use App\Services\ProductService;
 use App\Services\RequestService;
+use App\Services\TransactionService;
+use App\Services\TreasuryRepository;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -127,6 +133,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             EmployeeServiceInterface::class,
             EmployeeService::class
+        );
+
+        $this->app->bind(
+            TransactionRepositoryInterface::class,
+            TransactionRepository::class
+        );
+
+        $this->app->bind(
+            TreasuryRepositoryInterface::class,
+            TreasuryRepository::class
+        );
+
+        $this->app->bind(
+            TransactionServiceInterface::class,
+            TransactionService::class
         );
         
     }

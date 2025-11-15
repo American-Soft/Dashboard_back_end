@@ -8,6 +8,7 @@ use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RequestController;
+use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\AUTH\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,11 +50,18 @@ Route::get('/show/user/{userId}',[UserController::class,'show'])->middleware(['a
 Route::put('/update/user/{userId}',[UserController::class,'update'])->middleware(['auth:sanctum' , 'permission:update user role']);
 Route::delete('/delete/user/{userId}',[UserController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete user']);
 
+//employee
 Route::get('/employees',[EmployeeController::class,'Employees'])->middleware(['auth:sanctum' , 'permission:index employees']);
 Route::post('/employee/create',[EmployeeController::class,'createEmployee'])->middleware(['auth:sanctum' , 'permission:create employee']);
 Route::put('/employee/update/{employeeId}',[EmployeeController::class,'updateEmployee'])->middleware(['auth:sanctum' , 'permission:update employee']);
 Route::delete('/employee/delete/{employeeId}',[EmployeeController::class,'deleteEmployee'])->middleware(['auth:sanctum' , 'permission:delete employee']);
 Route::get('/employee/show/{employeeId}',[EmployeeController::class,'showEmployee'])->middleware(['auth:sanctum' , 'permission:show employee']);
+
+//transaction
+Route::get('/transactions',[TransactionController::class,'index'])->middleware(['auth:sanctum']);
+Route::post('deposit/transaction/{treasuryId}',[TransactionController::class,'depositTransaction'])->middleware(['auth:sanctum']);
+Route::post('withdraw/transaction/{treasuryId}',[TransactionController::class,'withdrawTransaction'])->middleware(['auth:sanctum']);
+
 
 
 //profile
