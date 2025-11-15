@@ -40,6 +40,13 @@ class RolesAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'delete Customer' , 'guard_name' => 'api']);//admin and super
         Permission::create(['name' => 'get Customer'    , 'guard_name' => 'api']);//all
 
+        //employee 
+        Permission::create(['name' => 'index employees' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'create employee' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'update employee' , 'guard_name' => 'api']);//all
+        Permission::create(['name' => 'delete employee' , 'guard_name' => 'api']);//admin and super
+        Permission::create(['name' => 'show employee' , 'guard_name' => 'api']);//all
+
         //Request
         Permission::create(['name' => 'index Requests' , 'guard_name' => 'api']);//all
         Permission::create(['name' => 'insert Request' , 'guard_name' => 'api']);//all
@@ -65,6 +72,11 @@ class RolesAndPermissionSeeder extends Seeder
             'insert Product',
             'update Product',
             'delete Product',
+            'index employees',
+            'create employee',
+            'update employee',
+            'delete employee',
+            'show employee',
             'register',
             'logout',
             'index Customers',

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\CustomerRequestController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RequestController;
@@ -47,6 +48,13 @@ Route::get('/users',[UserController::class,'index'])->middleware(['auth:sanctum'
 Route::get('/show/user/{userId}',[UserController::class,'show'])->middleware(['auth:sanctum' , 'permission:show user']);
 Route::put('/update/user/{userId}',[UserController::class,'update'])->middleware(['auth:sanctum' , 'permission:update user role']);
 Route::delete('/delete/user/{userId}',[UserController::class,'delete'])->middleware(['auth:sanctum' , 'permission:delete user']);
+
+Route::get('/employees',[EmployeeController::class,'Employees'])->middleware(['auth:sanctum' , 'permission:index employees']);
+Route::post('/employee/create',[EmployeeController::class,'createEmployee'])->middleware(['auth:sanctum' , 'permission:create employee']);
+Route::put('/employee/update/{employeeId}',[EmployeeController::class,'updateEmployee'])->middleware(['auth:sanctum' , 'permission:update employee']);
+Route::delete('/employee/delete/{employeeId}',[EmployeeController::class,'deleteEmployee'])->middleware(['auth:sanctum' , 'permission:delete employee']);
+Route::get('/employee/show/{employeeId}',[EmployeeController::class,'showEmployee'])->middleware(['auth:sanctum' , 'permission:show employee']);
+
 
 //profile
 Route::get('/user',[UserController::class,'profile'])->middleware(['auth:sanctum' , 'permission:profile user']);
