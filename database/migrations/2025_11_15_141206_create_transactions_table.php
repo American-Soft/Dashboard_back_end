@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['deposit', 'withdraw']);
             $table->decimal('amount', 8, 2);
+            $table->text('note')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('treasury_id')->constrained('treasuries')->cascadeOnDelete();
             $table->timestamps();

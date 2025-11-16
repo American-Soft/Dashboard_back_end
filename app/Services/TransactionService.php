@@ -22,9 +22,9 @@ class TransactionService implements TransactionServiceInterface{
             $treasury = $this->treasuryRepository->findTreasuryById($treasuryId);
             if(!$treasury) 
                 throw new TreasuryNotFoundException();
-            $this->transactionRepository->createTransaction($request->validated()+['user_id' => $request->user()->id , 'type' => 'deposit']);
+            $transaction=$this->transactionRepository->createTransaction($request->validated()+['user_id' => $request->user()->id , 'type' => 'deposit' , 'treasury_id' => $treasuryId]);
             $this->treasuryRepository->increaseDeposit($treasury , $request->amount);
-            return ['data' => $treasury , 'message' => 'Deposit transaction successfully' , 'status' =>200];
+            return ['data' => $transaction , 'message' => 'Deposit transaction successfully' , 'status' =>200];
         });
     }
     public function withdrawTransaction(StoreTransactionRequest  $request , int $treasuryId){
@@ -34,9 +34,9 @@ class TransactionService implements TransactionServiceInterface{
                 throw new TreasuryNotFoundException();
             if($treasury->total_amount < $request->amount)
                 throw new Exception('Insufficient balance');
-            $this->transactionRepository->createTransaction($request->validated()+['user_id' => $request->user()->id , 'type' => 'withdraw']);
-            $this->treasuryRepository->decreaseDeposit($treasury , $request->amount);
-            return ['data' => $treasury , 'message' => 'withdraw transaction successfully' , 'status' =>200];
+            $transaction=$this->transactionRepository->createTransaction($request->validated()+['user_id' => $request->user()->id , 'type' => 'withdraw' , 'treasury_id' => $treasuryId]);
+            $this->treasuryRepository->decreaseWithdraw($treasury , $request->amount);
+            return ['data' => $transaction , 'message' => 'withdraw transaction successfully' , 'status' =>200];
         });
     }
 }

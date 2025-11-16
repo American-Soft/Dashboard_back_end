@@ -18,6 +18,7 @@ use App\Repositories\interface\UserRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\RequestRepository;
 use App\Repositories\TransactionRepository;
+use App\Repositories\TreasuryRepository;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\BrandService;
@@ -33,12 +34,13 @@ use App\Services\interface\NotificationServiceInterface;
 use App\Services\interface\ProductServiceInterface;
 use App\Services\interface\RequestServiceInterface;
 use App\Services\Interface\TransactionServiceInterface;
+use App\Services\Interface\TreasuryServiceInterface;
 use App\Services\interface\UserServiceInterface;
 use App\Services\NotificationService;
 use App\Services\ProductService;
 use App\Services\RequestService;
 use App\Services\TransactionService;
-use App\Services\TreasuryRepository;
+use App\Services\TreasuryService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -148,6 +150,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             TransactionServiceInterface::class,
             TransactionService::class
+        );
+
+        $this->app->bind(
+            TreasuryServiceInterface::class,
+            TreasuryService::class
         );
         
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RequestController;
 use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\TreasuryController;
 use App\Http\Controllers\AUTH\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,8 @@ Route::get('/transactions',[TransactionController::class,'index'])->middleware([
 Route::post('deposit/transaction/{treasuryId}',[TransactionController::class,'depositTransaction'])->middleware(['auth:sanctum']);
 Route::post('withdraw/transaction/{treasuryId}',[TransactionController::class,'withdrawTransaction'])->middleware(['auth:sanctum']);
 
+//Treasury
+Route::get('get/treasury',[TreasuryController::class,'getTreasury'])->middleware(['auth:sanctum']);
 
 
 //profile
