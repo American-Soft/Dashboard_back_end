@@ -22,7 +22,7 @@ class RequestService implements RequestServiceInterface{
         protected ProductRepositoryInterface $productRepository){}
 
     public function index(){
-        $requests = $this->requestRepository->all(15, 'request');
+        $requests = $this->requestRepository->all(25, 'request');
         return ['data' => $requests , 'message' => 'Customers Requests' , 'status' => 200];
     }
 

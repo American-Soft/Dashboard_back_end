@@ -13,6 +13,7 @@ class Transaction extends Model
         'amount',
         'user_id',
         'treasury_id',
+        'note'
     ];
 
     public function user()
